@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if (isset($_SESSION['isLogged'])) header('Location: books.php');
+if (isset($_SESSION['isLogged'])) header('Location: books_list.php');
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +24,7 @@ if (isset($_SESSION['isLogged'])) header('Location: books.php');
                 <input type="password" name="passwd" id="passwd">
             </div>
             <div class="container-row" style="align-items:flex-end;">
-                <div>If you are not registered yet, click <a href="register_form.php">here</a>.</div>
+                <div>If you are not registered yet, click <a class="login-register" href="register_form.php">here</a>.</div>
                 <button type="submit"> Log in </button>
             </div>
         </form>

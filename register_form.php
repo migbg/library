@@ -32,7 +32,7 @@ if (isset($_SESSION['isLogged'])) header('Location: books.php');
                 <input type="password" name="re-passwd" id="re-passwd" value="<?php if (isset($_SESSION['passwd'])) echo $_SESSION['passwd']; ?>">
             </div>
             <div class="container-row" style="align-items:flex-end;">
-                <div> Already registered? Click <a href="login_form.php">here</a>.</div>
+                <div> Already registered? Click <a class="login-register" href="login_form.php">here</a>.</div>
                 <button type="submit"> Register </button> 
             </div>
         </form>

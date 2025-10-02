@@ -27,17 +27,26 @@ body {
     margin-top: 20px;
 }
 
-.container-book {
+.books-list {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    width: 300px;
-    max-width: 450px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.container-book {
+    flex: 0 1 300px;
+    text-align: center;
     background-color: #EFEFEF;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     margin: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border: 1px solid rgb(190, 190, 190);
+    text-decoration: none;
+}
+
+.container-book:hover {
+    background-color: #dddddd;
 }
 
 label {
@@ -64,6 +73,14 @@ button:hover {
     background-color: rgb(33, 76, 110);
 }
 
+.delete {
+    background-color: rgb(194, 44, 44);
+}
+
+.delete:hover {
+    background-color: rgb(151, 39, 39);
+}
+
 input:focus, textarea:focus, select:focus {
   border-color: rgba(48, 104, 150, 0.5);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(48, 104, 150, 0.5);;
@@ -79,11 +96,54 @@ form {
     max-width: 500px;
 }
 
-a {
+.login-register {
     text-decoration: none;
     color: rgb(48, 104, 150);
 }
 
-a:hover {
+.login-register:hover {
     text-decoration: underline;
+}
+
+.book-card {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    background-color: #fff;
+    border: 1px solid rgb(190, 190, 190);
+    padding: 30px;
+    box-shadow: 4px 6px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.book-cover img {
+    width: 150px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.book-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.book-info h3 {
+    margin: 0 0 10px;
+    font-size: 1.8rem;
+}
+
+.book-info p {
+    margin: 6px 0;
+    color: #444;
+}
+
+.description {
+    margin-top: 12px;
+    font-size: 1rem;
+    line-height: 1.5;
 }

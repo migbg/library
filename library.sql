@@ -31,8 +31,8 @@ CREATE TABLE IF NOT EXISTS books_categories (
     id_books INT,
     name_categories VARCHAR(100),
     CONSTRAINT pk_books_categories PRIMARY KEY (id_books, name_categories),
-    CONSTRAINT fk_books_categories_books FOREIGN KEY (id_books) REFERENCES books (id),
-    CONSTRAINT fk_books_categories_categories FOREIGN KEY (name_categories) REFERENCES categories (name)
+    CONSTRAINT fk_books_categories_books FOREIGN KEY (id_books) REFERENCES books (id) ON DELETE CASCADE,
+    CONSTRAINT fk_books_categories_categories FOREIGN KEY (name_categories) REFERENCES categories (name) ON DELETE CASCADE
 );
 
 INSERT INTO categories VALUES

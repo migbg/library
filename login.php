@@ -16,7 +16,7 @@ if ($result && password_verify($_POST['passwd'], $result['password'])) {
     $_SESSION['loggedEmail'] = $result['email'];
     $_SESSION['isLogged'] = true;
 
-    header('Location: books.php');
+    header('Location: books_list.php');
 } else {
     header('Location: login_form.php');
     $_SESSION['info'] .= "<div> Unable to log in. Please check your credentials. </div>";
