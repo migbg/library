@@ -50,15 +50,15 @@ else {
         <form action="book_actions.php<?php if ($update == "yes") echo "?id=" . $book['id'] ?>" method="post" enctype="multipart/form-data">
             <div class="container-row">
                 <label for="title"> Title* </label>
-                <input type="text" name="title" id="title" value="<?php if ($update == "yes") echo htmlspecialchars($book['title']) ?>" required>
+                <input type="text" name="title" placeholder="Lord of the Rings" id="title" value="<?php if ($update == "yes") echo htmlspecialchars($book['title']) ?>" required>
             </div>
             <div class="container-row">
                 <label for="description"> Description </label>
-                <textarea name="description" id="description"><?php if ($update == "yes") echo nl2br(htmlspecialchars($book['description'])) ?></textarea>
+                <textarea name="description" placeholder="This is the description..." id="description"><?php if ($update == "yes") echo nl2br(htmlspecialchars($book['description'])) ?></textarea>
             </div>
             <div class="container-row">
                 <label for="author"> Author* </label>
-                <input type="text" name="author" id="author" value="<?php if ($update == "yes") echo htmlspecialchars($book['author']) ?>">
+                <input type="text" name="author" placeholder="John Doe" id="author" value="<?php if ($update == "yes") echo htmlspecialchars($book['author']) ?>">
             </div>
             <div class="container-row">
                 <label for="url"> URL </label>
@@ -66,14 +66,15 @@ else {
             </div>
             <div class="container-row">
                 <label for="year"> Year </label>
-                <input type="number" name="year" id="year" value="<?php if ($update == "yes") echo (int)$book['year'] != NULL ?  htmlspecialchars((int)$book['year']) : ""?>">
+                <input type="number" name="year" placeholder="2025" id="year" value="<?php if ($update == "yes") echo (int)$book['year'] != NULL ?  htmlspecialchars((int)$book['year']) : ""?>">
             </div>
             <b> Category </b>
             <hr>
+            <div class="scroll">
                 <?php
                     foreach ($result as $category) {
-                        echo "<div class='container-row categories'>";
-                        echo "<label for='" . htmlspecialchars($category['name']) . "'>" . htmlspecialchars($category['name']) . "</label>";
+                        echo "<label class='container-row categories'>";
+                        echo "<span>" . htmlspecialchars($category['name']) . "</span>";
                         echo "<input type='checkbox' id='" . htmlspecialchars($category['name']) . "' name='categories[]' value='" . htmlspecialchars($category['name']) . "'";
                         if ($update == "yes") {
                             foreach ($result_categories as $selected) {
@@ -83,9 +84,10 @@ else {
                             }
                         }
                         echo ">";
-                        echo "</div>";
+                        echo "</label>";
                     }
                 ?>
+            </div>
             <hr>
             <div class="container-row">
                 <label for="userfile"> Cover </label>

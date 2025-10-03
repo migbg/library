@@ -13,7 +13,7 @@ if (isset($_SESSION['isLogged'])) header('Location: books.php');
 </head>
 <body>
     <div class="container">
-        <h2> Register </h2>
+        <h1> Register </h1>
         <form action="register.php" method="post">
             <div class="container-row">
                 <label for="username"> Name </label>
@@ -39,7 +39,7 @@ if (isset($_SESSION['isLogged'])) header('Location: books.php');
         <div>
             <?php 
                 if (isset($_SESSION['info'])) {
-                    echo "<div class=container-info><span style='color: rgb(194, 44, 44)'>NOTICE:</span>". $_SESSION['info'] . "</div>";
+                    echo "<div class=container-info><b><span style='color: rgb(194, 44, 44)'>NOTICE:</span></b>". $_SESSION['info'] . "</div>";
                     unset($_SESSION['info']);
                 }
             ?>

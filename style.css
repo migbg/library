@@ -3,12 +3,12 @@
 body {
     font-family: 'Open Sans', sans-serif;
     margin-top: 80px;
+    background-color: rgb(70, 70, 70);
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   min-height: 100vh;
 }
@@ -24,6 +24,20 @@ body {
     background-color: #EFEFEF;
     padding: 5px;
     border-radius: 5px;
+    font-weight: normal;
+}
+
+label:has(input[type="checkbox"]:checked) {
+    background-color: rgb(67, 126, 175);
+    color: white;
+}
+
+input[type="checkbox"]{
+    display: none;
+}
+
+input[type="file"]{
+    width: 60%;
 }
 
 .container-info {
@@ -40,7 +54,6 @@ body {
 
 .info {
     position: fixed;
-    margin-top: 0;
 }
 
 .books-list {
@@ -114,13 +127,18 @@ input:focus, textarea:focus, select:focus {
     box-shadow: 0 0 8px rgba(57, 166, 180, 0.8);
 }
 
+h1 {
+    color: white;
+}
+
 form {
-    border: 1px solid rgb(190, 190, 190);
     padding: 30px;
-    box-shadow: 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    border: 1px solid rgb(190, 190, 190);
     border-radius: 10px;
-    width: 95%;
+    width: 80%;
     max-width: 500px;
+    background-color: white;
 }
 
 .login-register {
@@ -168,19 +186,7 @@ form {
 }
 
 .book-info h3 {
-    margin: 0 0 10px;
     font-size: 1.8rem;
-}
-
-.book-info p {
-    margin: 6px 0;
-    color: #444;
-}
-
-.description {
-    margin-top: 12px;
-    font-size: 1rem;
-    line-height: 1.5;
 }
 
 nav {
@@ -190,7 +196,7 @@ nav {
     width: 100%;
     background: #e2e2e2;
     z-index: 1000;
-    border-bottom: 1px solid rgb(190, 190, 190);
+    border-bottom: 4px solid rgb(40, 40, 40);
 }
 
 .container-nav {
@@ -207,4 +213,9 @@ nav {
     text-decoration: none;
     margin-left: 20px;
     color: black;
+}
+
+.scroll {
+    height: 160px;
+    overflow-y: scroll;
 }
