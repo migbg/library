@@ -9,7 +9,7 @@
 </nav>
 <?php 
     if (isset($_SESSION['bookinfo'])){
-        echo "<div class='container-info info'>". $_SESSION['bookinfo'] . "</div>";
+        echo "<div class='container-info info'><b>NOTICE:</b>". $_SESSION['bookinfo'] . "</div>";
         unset($_SESSION['bookinfo']);
     }
 ?>

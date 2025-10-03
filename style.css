@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 body {
-    font-family: Arial;
+    font-family: 'Open Sans', sans-serif;
     margin-top: 80px;
 }
 
@@ -18,13 +20,19 @@ body {
     margin-bottom: 10px;
 }
 
+.categories {
+    background-color: #EFEFEF;
+    padding: 5px;
+    border-radius: 5px;
+}
+
 .container-info {
     display: flex;
     flex-direction: column;
     width: fit-content;
-    border: 1px solid red;
+    border: 2px solid rgb(194, 44, 44);
+    box-shadow: 0 0 8px rgba(255, 82, 82, 0.8);
     border-radius: 5px;
-    box-shadow: 0 0 8px rgba(150, 48, 48, 0.5);
     background-color: white;
     padding: 10px;
     margin-top: 20px;
@@ -43,6 +51,7 @@ body {
 
 .container-book {
     flex: 0 1 200px;
+    max-width: 200px;
     height: 300px;
     text-align: center;
     padding: 10px;
@@ -54,7 +63,11 @@ body {
     border: 1px solid rgb(190, 190, 190);
     text-decoration: none;
     color: white;
-    transition: 0.2s;
+    transition: 0.2s;  
+}
+
+.container-book div {
+    padding: 5px;
 }
 
 .container-book:hover {
@@ -97,9 +110,8 @@ button:hover {
 }
 
 input:focus, textarea:focus, select:focus {
-  border-color: rgba(48, 104, 150, 0.5);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(48, 104, 150, 0.5);;
-  outline: 0 none;
+    outline-color: rgb(48, 104, 150);
+    box-shadow: 0 0 8px rgba(57, 166, 180, 0.8);
 }
 
 form {
@@ -121,17 +133,20 @@ form {
 }
 
 .book-card {
+    justify-content: center;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 24px;
     background-color: #fff;
-    border: 1px solid rgb(190, 190, 190);
-    padding: 30px;
-    box-shadow: 4px 6px rgba(0,0,0,0.1);
+    padding: 20px;
     border-radius: 10px;
-    max-width: 800px;
-    margin: 0 auto;
+}
+
+.book-cover {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .book-cover img {
@@ -139,6 +154,10 @@ form {
     height: 400px;
     object-fit: cover;
     border-radius: 6px;
+}
+
+.book-cover button {
+    width: 100%;
 }
 
 .book-info {

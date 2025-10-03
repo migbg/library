@@ -16,7 +16,7 @@ if (trim($_POST['title']) == ""){
 }
 
 // Description
-$description = $_POST['description'];
+$description = trim($_POST['description']);
 
 // Author
 if (trim($_POST['author']) == ""){

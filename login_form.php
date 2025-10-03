@@ -31,7 +31,7 @@ if (isset($_SESSION['isLogged'])) header('Location: books_list.php');
         <div>
             <?php 
                 if (isset($_SESSION['info'])) {
-                    echo "<div class=container-info>" . $_SESSION['info'] . "</div>";
+                    echo "<div class=container-info><span style='color: rgb(194, 44, 44)'>NOTICE:</span>" . $_SESSION['info'] . "</div>";
                     unset($_SESSION['info']);
                 }
             ?>

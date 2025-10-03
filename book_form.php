@@ -54,9 +54,7 @@ else {
             </div>
             <div class="container-row">
                 <label for="description"> Description </label>
-                <textarea name="description" id="description">
-                    <?php if ($update == "yes") echo nl2br(htmlspecialchars($book['description'])) ?>
-                </textarea>
+                <textarea name="description" id="description"><?php if ($update == "yes") echo nl2br(htmlspecialchars($book['description'])) ?></textarea>
             </div>
             <div class="container-row">
                 <label for="author"> Author* </label>
@@ -70,27 +68,25 @@ else {
                 <label for="year"> Year </label>
                 <input type="number" name="year" id="year" value="<?php if ($update == "yes") echo (int)$book['year'] != NULL ?  htmlspecialchars((int)$book['year']) : ""?>">
             </div>
-            <div class="container-row">
-                <label for="category"> Category </label>
-                <div>
-                    <?php
-                        foreach ($result as $category) {
-                            echo "<div class='container-row'>";
-                            echo "<label for='" . htmlspecialchars($category['name']) . "'>" . htmlspecialchars($category['name']) . "</label>";
-                            echo "<input type='checkbox' id='" . htmlspecialchars($category['name']) . "' name='categories[]' value='" . htmlspecialchars($category['name']) . "'";
-                            if ($update == "yes") {
-                                foreach ($result_categories as $selected) {
-                                    if ($category['name'] == $selected) {
-                                        echo "checked";
-                                    }
+            <b> Category </b>
+            <hr>
+                <?php
+                    foreach ($result as $category) {
+                        echo "<div class='container-row categories'>";
+                        echo "<label for='" . htmlspecialchars($category['name']) . "'>" . htmlspecialchars($category['name']) . "</label>";
+                        echo "<input type='checkbox' id='" . htmlspecialchars($category['name']) . "' name='categories[]' value='" . htmlspecialchars($category['name']) . "'";
+                        if ($update == "yes") {
+                            foreach ($result_categories as $selected) {
+                                if ($category['name'] == $selected) {
+                                    echo "checked";
                                 }
                             }
-                            echo ">";
-                            echo "</div>";
                         }
-                    ?>
-                </div>
-            </div>
+                        echo ">";
+                        echo "</div>";
+                    }
+                ?>
+            <hr>
             <div class="container-row">
                 <label for="userfile"> Cover </label>
                 <input type="file" name="userfile" id="userfile">
