@@ -67,7 +67,7 @@ INSERT INTO categories VALUES
 ('Drama', 'Theatrical plays and dramatic works'),
 ('Graphic Novel', 'Long-form narrative comics with literary depth'),
 ('Comics', 'Sequential art storytelling in illustrated format'),
-('Children''s Books', 'Books written for young children'),
+('Children Book', 'Books written for young children'),
 ('Educational', 'Textbooks and instructional materials'),
 ('Religion', 'Books about faith, spirituality, and religious practices'),
 ('Other', 'Books that don''t fit standard categories');

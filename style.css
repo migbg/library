@@ -21,11 +21,18 @@ body {
 .container-info {
     display: flex;
     flex-direction: column;
+    width: fit-content;
     border: 1px solid red;
     border-radius: 5px;
-    box-shadow: 0 0 8px rgba(150, 48, 48, 0.5);;
+    box-shadow: 0 0 8px rgba(150, 48, 48, 0.5);
+    background-color: white;
     padding: 10px;
     margin-top: 20px;
+}
+
+.info {
+    position: fixed;
+    margin-top: 0;
 }
 
 .books-list {
@@ -35,19 +42,26 @@ body {
 }
 
 .container-book {
-    flex: 0 1 300px;
+    flex: 0 1 200px;
+    height: 300px;
     text-align: center;
-    background-color: #EFEFEF;
     padding: 10px;
     border-radius: 10px;
     margin: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background-color: rgba(0, 0, 0, 0.6);
+    background-blend-mode: darken;
     border: 1px solid rgb(190, 190, 190);
     text-decoration: none;
+    color: white;
+    transition: 0.2s;
 }
 
 .container-book:hover {
-    background-color: #dddddd;
+    background-color: rgba(255, 255, 255, 0.8);
+    background-blend-mode: lighten;
+    color: black;
+    box-shadow: inset 0 0 0 4px white;
 }
 
 label {
@@ -109,6 +123,7 @@ form {
 .book-card {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 24px;
     background-color: #fff;
     border: 1px solid rgb(190, 190, 190);
@@ -120,8 +135,8 @@ form {
 }
 
 .book-cover img {
-    width: 150px;
-    height: 220px;
+    width: 250px;
+    height: 400px;
     object-fit: cover;
     border-radius: 6px;
 }

@@ -20,8 +20,11 @@ else {
         if(!$book || $book['user_email'] != $_SESSION['loggedEmail']) header('Location: books_list.php');
 
         //Selected categories
-        $sql = "SELECT name_categories FROM books_categories WHERE id_books={$book['id']}";
-        $get_categories = $conn->query($sql);
+        $sql = "SELECT name_categories FROM books_categories WHERE id_books=:id_books";
+        $get_categories = $conn->prepare($sql);
+        $get_categories->execute([
+            'id_books' => $book['id']
+        ]);
         $result_categories = $get_categories->fetchAll(PDO::FETCH_COLUMN);
     }
 
@@ -43,7 +46,7 @@ else {
 <body>
     <?php include 'nav.php' ?>
     <div class="container">
-    <h1><?php echo $update == "yes" ? "Edit a book" : "Register a book" ?></h1>
+        <h1><?php echo $update == "yes" ? "Edit a book" : "Register a book" ?></h1>
         <form action="book_actions.php<?php if ($update == "yes") echo "?id=" . $book['id'] ?>" method="post" enctype="multipart/form-data">
             <div class="container-row">
                 <label for="title"> Title* </label>
@@ -51,7 +54,9 @@ else {
             </div>
             <div class="container-row">
                 <label for="description"> Description </label>
-                <textarea name="description" id="description" value="<?php if ($update == "yes") echo htmlspecialchars($book['description']) ?>"></textarea>
+                <textarea name="description" id="description">
+                    <?php if ($update == "yes") echo nl2br(htmlspecialchars($book['description'])) ?>
+                </textarea>
             </div>
             <div class="container-row">
                 <label for="author"> Author* </label>
@@ -59,11 +64,11 @@ else {
             </div>
             <div class="container-row">
                 <label for="url"> URL </label>
-                <input type="url" name="url" id="url" value="<?php if ($update == "yes") echo htmlspecialchars($book['URL']) ?>">
+                <input type="url" name="url" placeholder="https://example.com" id="url" value="<?php if ($update == "yes") echo htmlspecialchars($book['URL']) ?>">
             </div>
             <div class="container-row">
                 <label for="year"> Year </label>
-                <input type="number" name="year" id="year" value="<?php if ($update == "yes") echo htmlspecialchars((int)$book['year']) ?>">
+                <input type="number" name="year" id="year" value="<?php if ($update == "yes") echo (int)$book['year'] != NULL ?  htmlspecialchars((int)$book['year']) : ""?>">
             </div>
             <div class="container-row">
                 <label for="category"> Category </label>
@@ -71,8 +76,8 @@ else {
                     <?php
                         foreach ($result as $category) {
                             echo "<div class='container-row'>";
-                            echo "<label for='{$category['name']}'>{$category['name']}</label>";
-                            echo "<input type='checkbox' id='{$category['name']}' name='categories[]' value='{$category['name']}'";
+                            echo "<label for='" . htmlspecialchars($category['name']) . "'>" . htmlspecialchars($category['name']) . "</label>";
+                            echo "<input type='checkbox' id='" . htmlspecialchars($category['name']) . "' name='categories[]' value='" . htmlspecialchars($category['name']) . "'";
                             if ($update == "yes") {
                                 foreach ($result_categories as $selected) {
                                     if ($category['name'] == $selected) {
@@ -92,12 +97,6 @@ else {
             </div>
             <button name="action" type="submit" style="width: 100%;" <?php if ($update == "yes") echo "value='update'" ?>><?php echo $update == "yes" ? "Update" : "Register a book" ?></button>
         </form>
-        <?php 
-            if (isset($_SESSION['bookinfo'])){
-                echo "<div class=container-info>". $_SESSION['bookinfo'] . "</div>";
-                unset($_SESSION['bookinfo']);
-            }
-        ?>
     </div>
 </body>
 </html>

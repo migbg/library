@@ -16,7 +16,9 @@
         if(isset($_POST['action']) && $_POST['action'] == "yes"){
             $sql = "DELETE FROM books WHERE id={$_GET['id']}";
             $result = $conn->query($sql);
+            $_SESSION['bookinfo'] = "<div> Book deleted </div>";
             header('Location: books_list.php');
+            exit;
 
         } else if (isset($_POST['action']) && $_POST['action'] == "no"){
             header('Location: book.php?id=' . $_GET['id']);

@@ -7,3 +7,9 @@
         </div>
     </div>
 </nav>
+<?php 
+    if (isset($_SESSION['bookinfo'])){
+        echo "<div class='container-info info'>". $_SESSION['bookinfo'] . "</div>";
+        unset($_SESSION['bookinfo']);
+    }
+?>

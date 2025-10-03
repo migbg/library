@@ -8,8 +8,11 @@
     $get_book->execute([ 'id' => $_GET['id'] ]);
     $result = $get_book->fetch(PDO::FETCH_ASSOC);
 
-    $sql = "SELECT name_categories FROM books_categories WHERE id_books={$result['id']}";
-    $get_categories = $conn->query($sql);
+    $sql = "SELECT name_categories FROM books_categories WHERE id_books=:id_books";
+    $get_categories = $conn->prepare($sql);
+    $get_categories->execute([
+        'id_books' => $result['id']
+    ]);
     $result_categories = $get_categories->fetchAll(PDO::FETCH_COLUMN);
     
     if(!$result) header('Location: books_list.php');
@@ -33,13 +36,13 @@
             <p><strong>Author:</strong> <?php echo htmlspecialchars($result['author']); ?></p>
             <p><strong>Year:</strong> <?php echo htmlspecialchars($result['year']); ?></p>
             <p><strong>Categories:</strong> <?php echo htmlspecialchars(implode(", ", $result_categories)); ?></p>
-            <p><strong>URL:</strong> <?php echo htmlspecialchars($result['URL']); ?></p>
+            <p><strong>URL:</strong> <a href="<?php echo htmlspecialchars($result['URL']); ?>"><?php echo htmlspecialchars($result['URL']); ?></a></p>
             <p class="description"><?php echo nl2br(htmlspecialchars($result['description'])); ?></p>
         </div>
         <?php
             if ($result['user_email'] == $_SESSION['loggedEmail']) {
-                echo "<a href='book_form.php?id=" . $result['id'] . "&update=yes'><button> Edit </button></a>";
-                echo "<a href='delete_book.php?id=" . $result['id'] . "'><button class=delete> Delete </button></a>"; 
+                echo "<a href='book_form.php?id=" . htmlspecialchars($result['id']) . "&update=yes'><button> Edit </button></a>";
+                echo "<a href='delete_book.php?id=" . htmlspecialchars($result['id']) . "'><button class=delete> Delete </button></a>"; 
             }  
         ?>
     </div>

@@ -3,7 +3,7 @@ require 'connect.php';
 session_start();
 if (!isset($_SESSION['isLogged'])) header('Location: login_form.php');
 
-$sql = "SELECT id, title, author, cover FROM books";
+$sql = "SELECT id, title, author, cover FROM books ORDER BY title";
 $get_books = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
@@ -20,10 +20,9 @@ $get_books = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     <div class="books-list">
         <?php 
             foreach ($get_books as $book) {
-                echo "<a class=container-book href='book.php?id=" . $book['id'] . "'>";
-                echo "<div><b>" . $book['title'] . "</b></div>";
-                echo "<div>" . $book['author'] . "</div>";
-                echo "<img src='uploads/" . $book['cover'] . "' width='100px' height='150px'>";
+                echo "<a class=container-book href='book.php?id=" . htmlspecialchars($book['id']) . "' style='background-image: url(uploads/" . htmlspecialchars($book['cover']) . "); background-size: cover;'>";
+                echo "<div style='font-size: 1.5rem'><b>" . htmlspecialchars($book['title']) . "</b></div>";
+                echo "<div>" . htmlspecialchars($book['author']) . "</div>";
                 echo "</a>";
             }
         ?>

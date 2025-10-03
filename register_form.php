@@ -17,19 +17,19 @@ if (isset($_SESSION['isLogged'])) header('Location: books.php');
         <form action="register.php" method="post">
             <div class="container-row">
                 <label for="username"> Name </label>
-                <input type="text" name="name" id="name" value="<?php if (isset($_SESSION['name'])) echo $_SESSION['name']; ?>">
+                <input type="text" name="name" id="name" value="<?php if (isset($_SESSION['name'])) echo htmlspecialchars($_SESSION['name']); ?>">
             </div>
             <div class="container-row">
                 <label for="email"> Email </label>
-                <input type="email" name="email" id="email" value="<?php if (isset($_SESSION['email'])) echo $_SESSION['email']; ?>">
+                <input type="email" name="email" id="email" value="<?php if (isset($_SESSION['email'])) echo htmlspecialchars($_SESSION['email']); ?>">
             </div>
             <div class="container-row">
                 <label for="passwd"> Password </label>
-                <input type="password" name="passwd" id="passwd" value="<?php if (isset($_SESSION['passwd'])) echo $_SESSION['passwd']; ?>">
+                <input type="password" name="passwd" id="passwd" value="<?php if (isset($_SESSION['passwd'])) echo htmlspecialchars($_SESSION['passwd']); ?>">
             </div>
             <div class="container-row">
                 <label for="re-passwd"> Repeat password </label>
-                <input type="password" name="re-passwd" id="re-passwd" value="<?php if (isset($_SESSION['passwd'])) echo $_SESSION['passwd']; ?>">
+                <input type="password" name="re-passwd" id="re-passwd" value="<?php if (isset($_SESSION['passwd'])) echo htmlspecialchars($_SESSION['passwd']); ?>">
             </div>
             <div class="container-row" style="align-items:flex-end;">
                 <div> Already registered? Click <a class="login-register" href="login_form.php">here</a>.</div>

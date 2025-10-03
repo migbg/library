@@ -32,7 +32,7 @@ $url = filter_var($_POST['url'], FILTER_VALIDATE_URL) ? $_POST['url'] : NULL;
 $categories = $_POST['categories'] != [] ? $_POST['categories'] : NULL;
 
 // Year
-$year = $_POST['year'] > 0 ? $_POST['year'] > 0 : NULL;
+$year = $_POST['year'] > 0 ? $_POST['year'] : NULL;
 
 // Upload cover
 if ($_FILES['userfile']['name'] != ""){
