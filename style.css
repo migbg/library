@@ -1,5 +1,6 @@
 body {
     font-family: Arial;
+    margin-top: 80px;
 }
 
 .container {
@@ -61,7 +62,7 @@ input, textarea, select {
 }
 
 button {
-    padding: 10px;
+    padding: 12px;
     border-style: none;
     border-radius: 5px;
     background-color: rgb(67, 126, 175);
@@ -146,4 +147,30 @@ form {
     margin-top: 12px;
     font-size: 1rem;
     line-height: 1.5;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #e2e2e2;
+    z-index: 1000;
+    border-bottom: 1px solid rgb(190, 190, 190);
+}
+
+.container-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container-nav-buttons {
+    margin-right: 20px;
+}
+
+.title {
+    text-decoration: none;
+    margin-left: 20px;
+    color: black;
 }

@@ -1,6 +1,7 @@
 <?php
     require 'connect.php';
     session_start();
+    if (!isset($_SESSION['isLogged'])) header('Location: login_form.php');
 
     $sql = "SELECT * FROM books WHERE id=:id AND user_email=:user_email";
     $get_book = $conn->prepare($sql);
@@ -32,6 +33,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <?php include 'nav.php' ?>
     <div class="container">
         <form method="POST">
             <div class="container-row">

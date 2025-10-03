@@ -16,12 +16,7 @@ $get_books = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container-row">
-        <h1> List of books </h1>
-        <a href="logout.php"><button type="button"> Log out </button></a>
-    </div>
-    <a href="book_form.php"><button type="button">  New book </button></a>
-    <hr>
+    <?php include 'nav.php' ?>
     <div class="books-list">
         <?php 
             foreach ($get_books as $book) {

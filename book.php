@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <?php include 'nav.php' ?>
     <div class="book-card">
         <div class="book-cover">
             <img src="uploads/<?php echo htmlspecialchars($result['cover']); ?>" alt="Book Cover">
@@ -37,7 +38,7 @@
         </div>
         <?php
             if ($result['user_email'] == $_SESSION['loggedEmail']) {
-                echo "<a href='edit_book.php?id=" . $result['id'] . "'><button> Edit </button></a>";
+                echo "<a href='book_form.php?id=" . $result['id'] . "&update=yes'><button> Edit </button></a>";
                 echo "<a href='delete_book.php?id=" . $result['id'] . "'><button class=delete> Delete </button></a>"; 
             }  
         ?>
