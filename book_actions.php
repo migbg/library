@@ -6,11 +6,14 @@ if (!isset($_SESSION['isLogged'])) {
     exit;
 }
 
-unset($_SESSION['bookinfo'], $_SESSION['title']);
+unset($_SESSION['bookinfo']);
 
 //Update
 $update = $_POST['action'] == "update" ? $_POST['action'] : NULL;
 $book_id = isset($_GET['id']) ? $_GET['id'] : NULL;
+
+//Reset cover
+$reset = $_POST['reset'] == "yes" ? $_POST['reset'] : NULL;
 
 // Title filter
 if (trim($_POST['title']) == ""){
@@ -30,7 +33,7 @@ if (trim($_POST['author']) == ""){
 }
 
 // URL
-if (filter_var($_POST['url'], FILTER_VALIDATE_URL) || $_POST['year'] == NULL) {
+if (filter_var($_POST['url'], FILTER_VALIDATE_URL) || $_POST['url'] == "") {
     $url = $_SESSION['book_url'] = $_POST['url'];
 } else {
     $_SESSION['bookinfo'] .= "<div> Use a valid URL or leave it blank </div>";
@@ -52,27 +55,24 @@ if ($_FILES['userfile']['name'] != ""){
     $file_name = uniqid('cover_', true) . '.' . $extension;
     $file_path = 'uploads/' . $file_name;
 
-    $upload = true;
-    $image_uploaded = false;
+    $upload = $reset ? false : true;
 
     if ($extension != "png" && $extension != "jpg" && $extension != "jpeg") {
-        echo "Only PNG, JPG and JPEG allowed";
+        $_SESSION['bookinfo'] .= "<div> Only PNG, JPG and JPEG allowed </div>";
         $upload = false;
     }
 
     $check = getimagesize($_FILES['userfile']['tmp_name']);
     if ($check == false) {
-        echo "File is not and image";
+        $_SESSION['bookinfo'] .= "<div> File is not and image </div>";
         $upload = false;
     }
 }
 
 if (isset($title) && isset($author) && isset($year) && isset($url)) {
 
-    if (move_uploaded_file($_FILES["userfile"]["tmp_name"], $file_path)){
-        echo "Image uploaded";
-    } else {
-        echo "There was an error uploading your image";
+    if ($upload){
+        move_uploaded_file($_FILES["userfile"]["tmp_name"], $file_path);
     }
 
     if (isset($update) && isset($book_id)) {
@@ -133,7 +133,7 @@ if (isset($title) && isset($author) && isset($year) && isset($url)) {
                 'year' => $year,
                 'user_email' => $_SESSION['loggedEmail'],
                 'author' => $author,
-                'cover' => $upload ? $file_name : $result['cover'],
+                'cover' => $reset ? 'default.png' : ($upload ? $file_name : $result['cover']),
                 'id' => $book_id
             ]);
 
@@ -170,6 +170,8 @@ if (isset($title) && isset($author) && isset($year) && isset($url)) {
                 }
             }
         }
+
+        unset($_SESSION['book_title'], $_SESSION['book_author'], $_SESSION['book_year'], $_SESSION['book_url'], $_SESSION['book_description']);
     }
 }
 

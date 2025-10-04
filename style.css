@@ -27,8 +27,35 @@ body {
     font-weight: normal;
 }
 
+.cover {
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
 label:has(input[type="checkbox"]:checked) {
     background-color: rgb(67, 126, 175);
+    color: white;
+}
+
+.reset {
+    background-color: rgb(245, 245, 245);
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: normal;
+    justify-content: center;
+}
+
+.reset span {
+    color: rgb(170, 170, 170);
+}
+
+.reset:has(input[type="checkbox"]:checked) {
+    background-color: rgb(194, 82, 82);
+    color: white;
+}
+
+.reset:has(input[type="checkbox"]:checked) span {
     color: white;
 }
 
@@ -99,9 +126,11 @@ input, textarea, select {
     border: 1px solid rgb(190, 190, 190);
     border-color: rgb(200, 200, 200);
     border-radius: 5px;
+    font-family: 'Open Sans', sans-serif;
 }
 
 button {
+    font-family: 'Open Sans', sans-serif;
     padding: 12px;
     border-style: none;
     border-radius: 5px;
@@ -230,6 +259,13 @@ nav {
 }
 
 .scroll {
-    height: 160px;
+    height: 200px;
     overflow-y: scroll;
+    scrollbar-width: thin;
+}
+
+hr{
+    height: 2px;
+    border: none;
+    background-color: rgb(70, 70, 70);
 }

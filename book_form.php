@@ -1,6 +1,7 @@
 <?php
 require 'connect.php';
 session_start();
+
 if (!isset($_SESSION['isLogged'])) {
     header('Location: login_form.php');
     exit;
@@ -20,7 +21,7 @@ if (!isset($_SESSION['isLogged'])) {
 
         // If not, redirect to index
         if(!$book || $book['user_email'] != $_SESSION['loggedEmail']) {
-            header('Location: index.php');
+            header("Location: index.php");
             exit;
         }
 
@@ -61,25 +62,29 @@ $result = $get_categories->fetchAll(PDO::FETCH_ASSOC);
         <form action="book_actions.php<?php if ($update == "yes") echo "?id=" . htmlspecialchars($book['id']) ?>" method="post" enctype="multipart/form-data">
             <div class="container-row">
                 <label for="title"> Title* </label>
-                <input type="text" name="title" placeholder="Lord of the Rings" id="title" value="<?php if ($update == "yes") echo htmlspecialchars($book['title']) ?>" required>
+                <input type="text" name="title" placeholder="Lord of the Rings" id="title" value="<?php if ($update == "yes") echo htmlspecialchars($book['title']); else echo isset($_SESSION['book_title']) ? htmlspecialchars($_SESSION['book_title']) : ""; ?>" required>
             </div>
             <div class="container-row">
                 <label for="description"> Description </label>
-                <textarea name="description" placeholder="This is the description..." id="description"><?php if ($update == "yes") echo nl2br(htmlspecialchars($book['description'])) ?></textarea>
+                <textarea name="description" placeholder="This is the description..." id="description"><?php if ($update == "yes") echo nl2br(htmlspecialchars($book['description'])); else echo isset($_SESSION['book_description']) ? htmlspecialchars($_SESSION['book_description']) : ""; ?></textarea>
             </div>
             <div class="container-row">
                 <label for="author"> Author* </label>
-                <input type="text" name="author" placeholder="John Doe" id="author" value="<?php if ($update == "yes") echo htmlspecialchars($book['author']) ?>">
+                <input type="text" name="author" placeholder="John Doe" id="author" value="<?php if ($update == "yes") echo htmlspecialchars($book['author']); else echo isset($_SESSION['book_author']) ? htmlspecialchars($_SESSION['book_author']) : ""; ?>">
             </div>
             <div class="container-row">
                 <label for="url"> URL </label>
-                <input type="url" name="url" placeholder="https://example.com" id="url" value="<?php if ($update == "yes") echo htmlspecialchars($book['URL']) ?>">
+                <input type="url" name="url" placeholder="https://example.com" id="url" value="<?php if ($update == "yes") echo htmlspecialchars($book['URL']); else echo isset($_SESSION['book_url']) ? htmlspecialchars($_SESSION['book_url']) : ""; ?>">
             </div>
             <div class="container-row">
                 <label for="year"> Year </label>
-                <input type="number" name="year" placeholder="2025" min=1 id="year" value="<?php if ($update == "yes") echo (int)$book['year'] != NULL ?  htmlspecialchars((int)$book['year']) : ""?>">
+                <input type="number" name="year" placeholder="2025" min=1 id="year" value="<?php if ($update == "yes") echo (int)$book['year'] != NULL ?  htmlspecialchars((int)$book['year']) : ""; else echo isset($_SESSION['book_year']) ? htmlspecialchars($_SESSION['book_year']) : "";?>">
             </div>
-            <b> Category </b>
+            <div class="container-row">
+                <label for="userfile"> Cover </label>
+                <input type="file" name="userfile" id="userfile">
+            </div>
+            <b> Categories </b>
             <hr>
             <div class="scroll">
                 <?php
@@ -100,12 +105,20 @@ $result = $get_categories->fetchAll(PDO::FETCH_ASSOC);
                 ?>
             </div>
             <hr>
-            <div class="container-row">
-                <label for="userfile"> Cover </label>
-                <input type="file" name="userfile" id="userfile">
-            </div>
+            <?php
+                if ($update == "yes"){
+                    echo "<div class='container-row cover'>";
+                    echo "<label class='container-row reset'>";
+                    echo "<span> Reset cover </span>";
+                    echo "<input type='checkbox' name='reset' value='yes'>";
+                    echo "</label>";
+                    echo "<img src='uploads/" . htmlspecialchars($book['cover']) . "' alt='Book cover' height='170px' width='120px'>";
+                    echo "</div>";
+                }
+            ?>
             <button name="action" type="submit" style="width: 100%;" <?php if ($update == "yes") echo "value='update'" ?>><?php echo $update == "yes" ? "Update" : "Register a book" ?></button>
         </form>
     </div>
 </body>
 </html>
+<?php unset($_SESSION['book_title'], $_SESSION['book_author'], $_SESSION['book_year'], $_SESSION['book_url'], $_SESSION['book_description']); ?>

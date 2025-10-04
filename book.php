@@ -51,7 +51,7 @@
             <p><strong>Author:</strong> <?php echo htmlspecialchars($result['author']); ?></p>
             <p><strong>Year:</strong> <?php echo $result['year'] != NULL ? htmlspecialchars($result['year']) : "N/A"; ?></p>
             <p><strong>Categories:</strong> <?php echo $result_categories != NULL ? htmlspecialchars(implode(", ", $result_categories)) : "N/A"; ?></p>
-            <p><strong>URL:</strong> <a href="<?php echo htmlspecialchars($result['URL']); ?>"><?php echo $result['URL'] != NULL ? htmlspecialchars($result['URL']) : "N/A"; ?></a></p>
+            <p><strong>URL:</strong> <a target="_blank" href="<?php echo htmlspecialchars($result['URL']); ?>"><?php echo $result['URL'] != NULL ? htmlspecialchars($result['URL']) : "N/A"; ?></a></p>
             <p class="description"><?php echo $result['description'] != NULL ? nl2br(htmlspecialchars($result['description'])) : "No description."; ?></p>
         </div>
     </div>
