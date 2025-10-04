@@ -1,14 +1,15 @@
 <?php
 require 'connect.php';
 session_start();
-
-if (!isset($_SESSION['isLogged'])) header('Location: login_form.php');
-else {
+if (!isset($_SESSION['isLogged'])) {
+    header('Location: login_form.php');
+    exit;
+} else {
     //Update
     $update = isset($_GET['update']) ? $_GET['update'] : NULL;
 
     if ($update == "yes"){
-        //All data
+        // Get book if user owns it
         $sql = "SELECT * FROM books WHERE id=:id AND user_email=:user_email";
         $get_book = $conn->prepare($sql);
         $get_book->execute([
@@ -17,10 +18,14 @@ else {
         ]);
         $book = $get_book->fetch(PDO::FETCH_ASSOC);
 
-        if(!$book || $book['user_email'] != $_SESSION['loggedEmail']) header('Location: books_list.php');
+        // If not, redirect to index
+        if(!$book || $book['user_email'] != $_SESSION['loggedEmail']) {
+            header('Location: index.php');
+            exit;
+        }
 
         //Selected categories
-        $sql = "SELECT name_categories FROM books_categories WHERE id_books=:id_books";
+        $sql = "SELECT id_categories FROM books_categories WHERE id_books=:id_books";
         $get_categories = $conn->prepare($sql);
         $get_categories->execute([
             'id_books' => $book['id']
@@ -28,11 +33,11 @@ else {
         $result_categories = $get_categories->fetchAll(PDO::FETCH_COLUMN);
     }
 
-    // Categories
-    $sql = "SELECT name FROM categories";
-    $get_categories = $conn->prepare($sql);
-    $get_categories->execute();
-    $result = $get_categories->fetchAll(PDO::FETCH_ASSOC);
+// Categories
+$sql = "SELECT id, name FROM categories ORDER BY name";
+$get_categories = $conn->prepare($sql);
+$get_categories->execute();
+$result = $get_categories->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
 <!DOCTYPE html>
@@ -46,8 +51,14 @@ else {
 <body>
     <?php include 'nav.php' ?>
     <div class="container">
-        <h1><?php echo $update == "yes" ? "Edit a book" : "Register a book" ?></h1>
-        <form action="book_actions.php<?php if ($update == "yes") echo "?id=" . $book['id'] ?>" method="post" enctype="multipart/form-data">
+        <div class="container-row" style="align-items: center; gap: 20px;">
+            <?php 
+                if ($update == "yes") echo "<a href='book.php?id=" .  htmlspecialchars($book['id']) . "'><button class='back'> Go back </button></a>";
+                else echo "<a href='index.php'><button class='back'> Go back </button></a>";
+            ?>
+            <h1><?php echo $update == "yes" ? "Edit a book" : "Register a book" ?></h1>
+        </div>
+        <form action="book_actions.php<?php if ($update == "yes") echo "?id=" . htmlspecialchars($book['id']) ?>" method="post" enctype="multipart/form-data">
             <div class="container-row">
                 <label for="title"> Title* </label>
                 <input type="text" name="title" placeholder="Lord of the Rings" id="title" value="<?php if ($update == "yes") echo htmlspecialchars($book['title']) ?>" required>
@@ -66,7 +77,7 @@ else {
             </div>
             <div class="container-row">
                 <label for="year"> Year </label>
-                <input type="number" name="year" placeholder="2025" id="year" value="<?php if ($update == "yes") echo (int)$book['year'] != NULL ?  htmlspecialchars((int)$book['year']) : ""?>">
+                <input type="number" name="year" placeholder="2025" min=1 id="year" value="<?php if ($update == "yes") echo (int)$book['year'] != NULL ?  htmlspecialchars((int)$book['year']) : ""?>">
             </div>
             <b> Category </b>
             <hr>
@@ -75,10 +86,10 @@ else {
                     foreach ($result as $category) {
                         echo "<label class='container-row categories'>";
                         echo "<span>" . htmlspecialchars($category['name']) . "</span>";
-                        echo "<input type='checkbox' id='" . htmlspecialchars($category['name']) . "' name='categories[]' value='" . htmlspecialchars($category['name']) . "'";
+                        echo "<input type='checkbox' name='categories[]' value='" . htmlspecialchars($category['id']) . "'";
                         if ($update == "yes") {
                             foreach ($result_categories as $selected) {
-                                if ($category['name'] == $selected) {
+                                if ($category['id'] == $selected) {
                                     echo "checked";
                                 }
                             }

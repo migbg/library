@@ -1,7 +1,10 @@
 <?php
 require 'connect.php';
 session_start();
-if (!isset($_SESSION['isLogged'])) header('Location: login_form.php');
+if (!isset($_SESSION['isLogged'])) {
+    header('Location: login_form.php');
+    exit;
+}
 
 $sql = "SELECT id, title, author, cover FROM books ORDER BY title";
 $get_books = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);

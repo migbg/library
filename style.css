@@ -63,15 +63,15 @@ input[type="file"]{
 }
 
 .container-book {
-    flex: 0 1 200px;
-    max-width: 200px;
-    height: 300px;
+    flex: 0 1 210px;
+    max-width: 210px;
+    height: 320px;
     text-align: center;
     padding: 10px;
     border-radius: 10px;
     margin: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.7);
     background-blend-mode: darken;
     border: 1px solid rgb(190, 190, 190);
     text-decoration: none;
@@ -120,6 +120,14 @@ button:hover {
 
 .delete:hover {
     background-color: rgb(151, 39, 39);
+}
+
+.back {
+    background-color: #242424;
+}
+
+.back:hover {
+    background-color: black;
 }
 
 input:focus, textarea:focus, select:focus {
@@ -187,6 +195,12 @@ form {
 
 .book-info h3 {
     font-size: 1.8rem;
+    margin: 0;
+    padding-bottom: 30px;
+}
+
+.book-info p {
+    margin-bottom: 10px;
 }
 
 nav {

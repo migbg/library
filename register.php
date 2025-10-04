@@ -1,6 +1,11 @@
 <?php
 require 'connect.php';
 session_start();
+if (isset($_SESSION['isLogged'])) {
+    header('Location: index.php');
+    exit;
+}
+
 unset($_SESSION['info'], $_SESSION['name'], $_SESSION['email'], $_SESSION['passwd']);
 
 // Filtro para el nombre
