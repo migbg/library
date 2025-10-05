@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Rubik', sans-serif;
     margin-top: 80px;
     background-color: rgb(70, 70, 70);
 }
@@ -47,7 +47,7 @@ label:has(input[type="checkbox"]:checked) {
 }
 
 .reset span {
-    color: rgb(170, 170, 170);
+    color: rgb(145, 145, 145);
 }
 
 .reset:has(input[type="checkbox"]:checked) {
@@ -64,7 +64,16 @@ input[type="checkbox"]{
 }
 
 input[type="file"]{
-    width: 60%;
+    width: 50%;
+}
+
+input[type="file"]::file-selector-button {
+    font-family: 'Rubik', sans-serif;
+    padding: 5px;
+    border-style: none;
+    border-radius: 5px;
+    background-color: rgb(245, 245, 245);
+    color: rgb(145, 145, 145);
 }
 
 .container-info {
@@ -100,21 +109,21 @@ input[type="file"]{
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     background-color: rgba(0, 0, 0, 0.7);
     background-blend-mode: darken;
-    border: 1px solid rgb(190, 190, 190);
+    border: 1px solid white;
     text-decoration: none;
     color: white;
-    transition: 0.2s;  
+    transition: 0.2s;
 }
 
 .container-book div {
-    padding: 5px;
+    padding: 10px;
 }
 
 .container-book:hover {
     background-color: rgba(255, 255, 255, 0.8);
     background-blend-mode: lighten;
     color: black;
-    box-shadow: inset 0 0 0 4px white;
+    box-shadow: 0 0 10px 4px rgb(67, 126, 175);
 }
 
 label {
@@ -126,11 +135,11 @@ input, textarea, select {
     border: 1px solid rgb(190, 190, 190);
     border-color: rgb(200, 200, 200);
     border-radius: 5px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Rubik', sans-serif;
 }
 
 button {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Rubik', sans-serif;
     padding: 12px;
     border-style: none;
     border-radius: 5px;
@@ -226,6 +235,7 @@ form {
     font-size: 1.8rem;
     margin: 0;
     padding-bottom: 30px;
+    margin-top: 4px;
 }
 
 .book-info p {

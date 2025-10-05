@@ -22,6 +22,11 @@ if(!$result || $result['user_email'] != $_SESSION['loggedEmail']) {
 } else {
     // The owner can delete it
     if(isset($_POST['action']) && $_POST['action'] == "yes"){
+        // Remove image
+        if ($result['cover'] != "default.png") {
+            unlink('uploads/' . $result['cover']);
+        }
+        
         $sql = "DELETE FROM books WHERE id={$_GET['id']}";
         $result = $conn->query($sql);
         $_SESSION['bookinfo'] = "<div> Book deleted </div>";

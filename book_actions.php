@@ -137,6 +137,9 @@ if (isset($title) && isset($author) && isset($year) && isset($url)) {
                 'id' => $book_id
             ]);
 
+            if ($reset) {
+                unlink('uploads/' . $result['cover']);
+            }
             $_SESSION['bookinfo'] .= "<div> Book updated </div>";
         }
 
