@@ -279,3 +279,20 @@ hr{
     border: none;
     background-color: rgb(70, 70, 70);
 }
+
+.no-book {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.no-book a, .no-book button {
+    width: 100%;
+    box-shadow: 0 0 10px 2px rgb(190, 190, 190);
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
+.no-book h1 {
+    color: white;
+}

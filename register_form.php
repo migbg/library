@@ -35,8 +35,8 @@ if (isset($_SESSION['isLogged'])) {
                 <input type="password" name="re-passwd" id="re-passwd" value="<?php if (isset($_SESSION['passwd'])) echo htmlspecialchars($_SESSION['passwd']); ?>">
             </div>
             <div class="container-row" style="align-items:flex-end;">
-                <div> Already registered? Click <a class="login-register" href="login_form.php">here</a>.</div>
-                <button type="submit"> Register </button> 
+                <div> Already have an account? <a class="login-register" href="login_form.php">Sign in</a>.</div>
+                <button type="submit"> Sign up </button> 
             </div>
         </form>
         <div>

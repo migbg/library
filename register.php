@@ -53,6 +53,9 @@ if ($email && $passwd && $name) {
             'passwd' => $passwd
         ]);
         $_SESSION['info'] .="<div> User created. </div>";
+        header('Location: login_form.php');
+        exit;
+
     } catch (PDOException $e) {
         echo $e->getMessage();
     }

@@ -20,15 +20,15 @@ if (isset($_SESSION['isLogged'])) {
         <form action="login.php" method="post">
             <div class="container-row">
                 <label for="email"> Email: </label>
-                <input type="email" name="email" id="email">
+                <input type="email" name="email" id="email" autofocus>
             </div>
             <div class="container-row">
                 <label for="passwd"> Password: </label>
                 <input type="password" name="passwd" id="passwd">
             </div>
             <div class="container-row" style="align-items:flex-end;">
-                <div>If you are not registered yet, click <a class="login-register" href="register_form.php">here</a>.</div>
-                <button type="submit"> Log in </button>
+                <div>Don't have an account?, <a class="login-register" href="register_form.php">Sign up</a>.</div>
+                <button type="submit"> Sign in </button>
             </div>
         </form>
         <div>

@@ -28,6 +28,13 @@ $get_books = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
                 echo "<div>" . htmlspecialchars($book['author']) . "</div>";
                 echo "</a>";
             }
+
+            if (!$get_books) {
+                echo "<div class='no-book'>";
+                echo "<h1> No books to display </h1>";
+                echo "<a href='book_form.php'><button type='button'> Add the first one ! </button></a>";
+                echo "</div>";
+            }
         ?>
     </div>
 </body>

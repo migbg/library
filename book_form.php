@@ -46,7 +46,7 @@ $result = $get_categories->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $update == "yes" ? "Edit a book" : "Register a book" ?></title>
+    <title><?php echo $update == "yes" ? "Edit book" : "Add book" ?></title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -57,7 +57,7 @@ $result = $get_categories->fetchAll(PDO::FETCH_ASSOC);
                 if ($update == "yes") echo "<a href='book.php?id=" .  htmlspecialchars($book['id']) . "'><button class='back'> Go back </button></a>";
                 else echo "<a href='index.php'><button class='back'> Go back </button></a>";
             ?>
-            <h1><?php echo $update == "yes" ? "Edit a book" : "Register a book" ?></h1>
+            <h1><?php echo $update == "yes" ? "Edit book" : "Add book" ?></h1>
         </div>
         <form action="book_actions.php<?php if ($update == "yes") echo "?id=" . htmlspecialchars($book['id']) ?>" method="post" enctype="multipart/form-data">
             <div class="container-row">
@@ -116,7 +116,7 @@ $result = $get_categories->fetchAll(PDO::FETCH_ASSOC);
                     echo "</div>";
                 }
             ?>
-            <button name="action" type="submit" style="width: 100%;" <?php if ($update == "yes") echo "value='update'" ?>><?php echo $update == "yes" ? "Update" : "Register a book" ?></button>
+            <button name="action" type="submit" style="width: 100%;" <?php if ($update == "yes") echo "value='update'" ?>><?php echo $update == "yes" ? "Update" : "Add" ?></button>
         </form>
     </div>
 </body>
