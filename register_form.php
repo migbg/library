@@ -13,6 +13,23 @@ if (isset($_SESSION['isLogged'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Register </title>
     <link rel="stylesheet" href="style.css">
+    <script>
+    function passwdHelp(str) {
+        if (str.length == 0) {
+            document.getElementById("passwd_help").innerHTML = "";
+            return;
+        } else {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("passwd_help").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", 'passwd_help.php?q=' + encodeURIComponent(str), true);
+        xmlhttp.send();
+        }
+    }
+</script>
 </head>
 <body>
     <div class="container">
@@ -28,7 +45,7 @@ if (isset($_SESSION['isLogged'])) {
             </div>
             <div class="container-row">
                 <label for="passwd"> Password </label>
-                <input type="password" name="passwd" id="passwd" value="<?php if (isset($_SESSION['passwd'])) echo htmlspecialchars($_SESSION['passwd']); ?>">
+                <input type="password" name="passwd" id="passwd" onkeyup="passwdHelp(this.value)" value="<?php if (isset($_SESSION['passwd'])) echo htmlspecialchars($_SESSION['passwd']); ?>">
             </div>
             <div class="container-row">
                 <label for="re-passwd"> Repeat password </label>
@@ -47,6 +64,7 @@ if (isset($_SESSION['isLogged'])) {
                 }
             ?>
         </div>
+        <div class="container" id="passwd_help"></div>
     </div>
 </body>
 </html>
