@@ -16,13 +16,13 @@ if (isset($_SESSION['isLogged'])) {
     <script>
     function passwdHelp(str) {
         if (str.length == 0) {
-            document.getElementById("passwd_help").innerHTML = "";
+            document.getElementById("passwd_hint").innerHTML = "";
             return;
         } else {
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("passwd_help").innerHTML = this.responseText;
+                document.getElementById("passwd_hint").innerHTML = this.responseText;
             }
         };
         xmlhttp.open("GET", 'passwd_help.php?q=' + encodeURIComponent(str), true);
@@ -51,6 +51,7 @@ if (isset($_SESSION['isLogged'])) {
                 <label for="re-passwd"> Repeat password </label>
                 <input type="password" name="re-passwd" id="re-passwd" value="<?php if (isset($_SESSION['passwd'])) echo htmlspecialchars($_SESSION['passwd']); ?>">
             </div>
+            <div class="passwd-hint" id="passwd_hint"></div>
             <div class="container-row" style="align-items:flex-end;">
                 <div> Already have an account? <a class="login-register" href="login_form.php">Sign in</a>.</div>
                 <button type="submit"> Sign up </button> 
@@ -64,7 +65,7 @@ if (isset($_SESSION['isLogged'])) {
                 }
             ?>
         </div>
-        <div class="container" id="passwd_help"></div>
     </div>
 </body>
 </html>
+<?php unset($_SESSION['name'], $_SESSION['email'], $_SESSION['passwd']) ?>

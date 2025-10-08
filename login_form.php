@@ -27,7 +27,7 @@ if (isset($_SESSION['isLogged'])) {
                 <input type="password" name="passwd" id="passwd">
             </div>
             <div class="container-row" style="align-items:flex-end;">
-                <div>Don't have an account?, <a class="login-register" href="register_form.php">Sign up</a>.</div>
+                <div>Don't have an account? <a class="login-register" href="register_form.php">Sign up</a>.</div>
                 <button type="submit"> Sign in </button>
             </div>
         </form>
