@@ -2,12 +2,14 @@
     function search(str) {
         if (str.length == 0) {
             document.getElementById("search-box").innerHTML = "";
+            document.getElementById("search-box").style = "border: none;";
             return;
         } else {
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("search-box").innerHTML = this.responseText;
+                document.getElementById("search-box").style = "border: 2px solid rgb(48, 104, 150);";
             }
         };
         xmlhttp.open("GET", 'search.php?q=' + encodeURIComponent(str), true);
@@ -20,7 +22,7 @@
         <a class="title" href="index.php"><h2> Library </h2></a>
         <div class="container-nav-buttons">
             <div class="search-container">
-                <input type="text" name="search" id="search" onkeyup="search(this.value)" placeholder="Search...">
+                <input type="text" name="search" id="search" onkeyup="search(this.value)" placeholder="Search a book title...">
                 <div id="search-box"></div>
             </div>
             <a href="book_form.php"><button type="button"> Add book </button></a>

@@ -324,16 +324,31 @@ hr{
     position: relative;
 }
 
+.search-container input {
+    padding: 12px;
+}
+
+.search-container input::placeholder {
+    color: rgb(190, 190, 190);
+    font-style: italic;
+}
+
 #search-box {
     position: absolute;
     overflow-y: auto;
-    max-height: 200px;
+    max-height: 350px;
     background-color: white;
     max-width: 300px;
+    scrollbar-width: thin;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 10px;
 }
 
 #search-box div {
-    padding: 4px;
+    padding: 8px;
+    border-bottom: 1px solid rgb(190, 190, 190);
+    text-align: center;
 }
 
 #search-box div > a {
