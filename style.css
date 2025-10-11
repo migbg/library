@@ -1,5 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
+@keyframes button-animation {
+    0% { transform: translateY(0); }
+    25% { transform: translateY(3px); }
+    75% { transform: translateY(-1px); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes selected-book {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+html {
+    height: 100vh;
+}
+
 body {
     font-family: 'Rubik', sans-serif;
     margin-top: 80px;
@@ -10,7 +26,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
 }
 
 .container-row {
@@ -99,6 +114,7 @@ input[type="file"]::file-selector-button {
 }
 
 .container-book {
+    position: relative;
     flex: 0 1 210px;
     max-width: 210px;
     height: 320px;
@@ -123,7 +139,20 @@ input[type="file"]::file-selector-button {
     background-color: rgba(255, 255, 255, 0.8);
     background-blend-mode: lighten;
     color: black;
-    box-shadow: 0 0 10px 4px rgb(67, 126, 175);
+    box-shadow: 0 0 10px 4px rgb(67, 126, 175), inset 0 0 0 4px white;
+    transform: translateY(-10px);
+}
+
+.container-book:hover::after {
+    position: absolute;
+    font-weight: bolder;
+    text-shadow: black;
+    content: "^";
+    color: white;
+    bottom: -40px;
+    right: 45%;
+    font-size: 30px;
+    animation: selected-book 0.5s;
 }
 
 label {
@@ -146,10 +175,13 @@ button {
     background-color: rgb(67, 126, 175);
     font-weight: bold;
     color: white;
+    transition: 0.25s;
 }
 
 button:hover {
     background-color: rgb(33, 76, 110);
+    animation: button-animation;
+    animation-duration: 0.35s;
 }
 
 .delete {
@@ -256,19 +288,25 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .container-nav-buttons {
     align-items: center;
     display: flex;
-    margin-right: 20px;
     gap: 10px;
 }
 
 .title {
+    position: relative;
     text-decoration: none;
-    margin-left: 20px;
     color: black;
+}
+
+.title:hover h2::before {
+    content: "<";
+    color: rgb(67, 126, 175);
 }
 
 .scroll {
@@ -359,4 +397,36 @@ hr{
 
 #search-box div > a:hover {
     color: rgb(48, 104, 150);
+}
+
+#search-box div:has(a:hover) {
+    background-color: #ebebeb;
+    box-shadow: inset 0 2px rgb(67, 126, 175), inset 0 -2px rgb(67, 126, 175);
+}
+
+/* Change nav for smaller screens */
+@media (max-width: 510px) {
+    .container-nav {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container-nav-buttons {
+        margin-bottom: 10px;
+    }
+
+    body {
+        margin-top: 130px;
+    }
+}
+
+/* Change nav for smaller screens */
+@media (max-width: 415px){
+    .search-container input {
+        padding: 8px;
+    }
+
+    button {
+        padding: 8px;
+    }
 }
