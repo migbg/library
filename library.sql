@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(100),
     password VARCHAR(255),
     name VARCHAR(100),
+    avatar VARCHAR(255),
     CONSTRAINT pk_users PRIMARY KEY (email)
 );
 
@@ -74,8 +75,8 @@ INSERT INTO categories (name, description) VALUES
 ('Other', 'Books that don''t fit standard categories');
 
 INSERT INTO users VALUES 
-('miguel@prueba.com', '$argon2id$v=19$m=131072,t=4,p=2$eXJ1M2h4bkRYUDA3MGQyLg$GSe7xt5kclUdmE0K6OicA7GCDFd8j77i1S6ElUd9RH4', 'Miguel'),
-('pepe@prueba.com', '$argon2id$v=19$m=131072,t=4,p=2$ZDlGTjRKZHVaUi9yUnpYVw$9Q0ALDvX934t4uK/65bifoA3p91MrzmeGm3Je4+/gTY', 'Pepe');
+('miguel@prueba.com', '$argon2id$v=19$m=131072,t=4,p=2$eXJ1M2h4bkRYUDA3MGQyLg$GSe7xt5kclUdmE0K6OicA7GCDFd8j77i1S6ElUd9RH4', 'Miguel', 'default-avatar.png'),
+('pepe@prueba.com', '$argon2id$v=19$m=131072,t=4,p=2$ZDlGTjRKZHVaUi9yUnpYVw$9Q0ALDvX934t4uK/65bifoA3p91MrzmeGm3Je4+/gTY', 'Pepe', 'default-avatar.png');
 
 INSERT INTO books (title, description, URL, year, user_email, author, cover) VALUES
 ('The Great Gatsby', 'A classic American novel set in the Jazz Age, exploring themes of wealth, love, and the American Dream through the mysterious Jay Gatsby.', 'https://example.com/great-gatsby', 1925, 'miguel@prueba.com', 'F. Scott Fitzgerald', 'default.png'),

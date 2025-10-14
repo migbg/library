@@ -14,27 +14,27 @@ if (isset($_SESSION['isLogged'])) {
     <title> Register </title>
     <link rel="stylesheet" href="style.css">
     <script>
-    function passwdHelp(str) {
-        if (str.length == 0) {
-            document.getElementById("passwd_hint").innerHTML = "";
-            return;
-        } else {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("passwd_hint").innerHTML = this.responseText;
+        function passwdHelp(str) {
+            if (str.length == 0) {
+                document.getElementById("passwd_hint").innerHTML = "";
+                return;
+            } else {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("passwd_hint").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", 'passwd_help.php?q=' + encodeURIComponent(str), true);
+            xmlhttp.send();
             }
-        };
-        xmlhttp.open("GET", 'passwd_help.php?q=' + encodeURIComponent(str), true);
-        xmlhttp.send();
         }
-    }
-</script>
+    </script>
 </head>
 <body>
     <div class="container">
         <h1> Register </h1>
-        <form action="register.php" method="post">
+        <form action="register.php" method="post" enctype="multipart/form-data">
             <div class="container-row">
                 <label for="username"> Name </label>
                 <input type="text" name="name" id="name" value="<?php if (isset($_SESSION['name'])) echo htmlspecialchars($_SESSION['name']); ?>">
@@ -52,6 +52,10 @@ if (isset($_SESSION['isLogged'])) {
                 <input type="password" name="re-passwd" id="re-passwd" value="<?php if (isset($_SESSION['passwd'])) echo htmlspecialchars($_SESSION['passwd']); ?>">
             </div>
             <div class="passwd-hint" id="passwd_hint"></div>
+            <div class="container-row">
+                <label for="avatar"> Avatar </label>
+                <input type="file" name="avatar" id="avatar">
+            </div>
             <div class="container-row" style="align-items:flex-end;">
                 <div> Already have an account? <a class="login-register" href="login_form.php">Sign in</a>.</div>
                 <button type="submit"> Sign up </button> 

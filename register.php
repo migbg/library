@@ -41,6 +41,30 @@ if ($_POST['passwd'] !== $_POST['re-passwd']) {
     }
 }
 
+// Upload avatar
+if ($_FILES['avatar']['name'] != ""){
+    $extension = strtolower(pathinfo($_FILES['avatar']['name'], PATHINFO_EXTENSION));
+    $file_name = uniqid('avatar_', true) . '.' . $extension;
+    $file_path = 'uploads/' . $file_name;
+
+    $upload = true;
+
+    if ($extension != "png" && $extension != "jpg" && $extension != "jpeg") {
+        $_SESSION['info'] .= "<div> Only PNG, JPG and JPEG allowed </div>";
+        $upload = false;
+    }
+
+    $check = getimagesize($_FILES['avatar']['tmp_name']);
+    if ($check == false) {
+        $_SESSION['info'] .= "<div> File is not and image </div>";
+        $upload = false;
+    }
+}
+
+if ($upload){
+    move_uploaded_file($_FILES['avatar']['tmp_name'], $file_path);
+}
+
 // Comprueba que el usuario no exista y lo crea
 $sqlSearch = "SELECT email from users WHERE email=:email";
 $sqlSearch = $conn->prepare($sqlSearch);
@@ -50,12 +74,13 @@ if ($result) $_SESSION['info'] .="<div> Email already in use </div>";
 
 if ($email && $passwd && $name) {
     try {
-        $sql = "INSERT INTO users VALUES (:email, :passwd, :name)";
+        $sql = "INSERT INTO users VALUES (:email, :passwd, :name, :avatar)";
         $insertUser = $conn->prepare($sql);
         $insertUser->execute([
             'name' => $name,
             'email' => $email,
-            'passwd' => $passwd
+            'passwd' => $passwd,
+            'avatar' => $upload ? $file_name : "default-avatar.png"
         ]);
         $_SESSION['info'] .="<div> User created </div>";
         header('Location: login_form.php');
