@@ -27,6 +27,7 @@
             </div>
             <a href="book_form.php"><button type="button"> Add book </button></a>
             <a href="logout.php"><button class="delete" type="button"> Sign out </button></a>
+            <a href="profile.php"><img class="nav-avatar" src="uploads/<?php echo htmlspecialchars($_SESSION['loggedAvatar']); ?>" alt="Avatar" height="40px" width="40px"></a>
         </div>
     </div>
 </nav>

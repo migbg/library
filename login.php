@@ -14,6 +14,7 @@ if ($result && password_verify($_POST['passwd'], $result['password'])) {
 
     $_SESSION['loggedName'] = $result['name'];
     $_SESSION['loggedEmail'] = $result['email'];
+    $_SESSION['loggedAvatar'] = $result['avatar'];
     $_SESSION['isLogged'] = true;
 
     header('Location: index.php');

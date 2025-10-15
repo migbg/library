@@ -35,10 +35,10 @@
 </head>
 <body>
     <?php include 'nav.php' ?>
-    <div class="book-card">
-        <div class="book-cover">
+    <div class="info-card">
+        <div class="card-column">
             <a href='index.php'><button class='back'> Go back </button></a>
-            <img src="uploads/<?php echo htmlspecialchars($result['cover']); ?>" alt="Book Cover">
+            <img class="book-img" src="uploads/<?php echo htmlspecialchars($result['cover']); ?>" alt="Book Cover">
         <?php
             if ($result['user_email'] == $_SESSION['loggedEmail']) {
                 echo "<a href='book_form.php?id=" . htmlspecialchars($result['id']) . "&update=yes'><button> Edit </button></a>";
@@ -46,7 +46,7 @@
             }  
         ?>
         </div>
-        <div class="book-info">
+        <div class="card-row">
             <h3><?php echo htmlspecialchars($result['title']); ?></h3>
             <p><strong>Author:</strong> <?php echo htmlspecialchars($result['author']); ?></p>
             <p><strong>Year:</strong> <?php echo $result['year'] != NULL ? htmlspecialchars($result['year']) : "N/A"; ?></p>

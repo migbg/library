@@ -26,6 +26,10 @@ if (isset($_SESSION['isLogged'])) {
                 <label for="passwd"> Password: </label>
                 <input type="password" name="passwd" id="passwd">
             </div>
+            <div class="container-row remember">
+                <label class="remember-label" for="remember-me"> Remember me </label>
+                <input class="remember-me" type="checkbox" name="remind-me" id="remember-me" value="yes">
+            </div>
             <div class="container-row" style="align-items:flex-end;">
                 <div>Don't have an account? <a class="login-register" href="register_form.php">Sign up</a>.</div>
                 <button type="submit"> Sign in </button>
