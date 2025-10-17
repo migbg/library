@@ -59,7 +59,7 @@
         ]);
 
         // Remove image if reset
-        if ($reset) {
+        if ($reset && $_SESSION['loggedAvatar'] != 'default-avatar.png') {
             unlink('uploads/' . $_SESSION['loggedAvatar']);
         }
 
@@ -101,8 +101,8 @@
             </div>
             <button type="submit" style="width: 100%;"> Update profile </button>
         </form>
-        <form action="stats.php" style="margin-top: 20px" method="POST">
-            <button class="stats" type="submit" style="width: 100%;"> Check books stats </button>
+        <div class="center-container" style="margin-top: 20px">
+            <a href="stats.php"><button class="stats" type="submit" style="width: 100%;"> Check my books stats </button></a>
         </form>
     </div>
 </body>

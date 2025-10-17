@@ -11,7 +11,7 @@ if (isset($_SESSION['isLogged'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Register </title>
+    <title> Sign up </title>
     <link rel="stylesheet" href="style.css">
     <script>
         function passwdHelp(str) {
@@ -33,18 +33,18 @@ if (isset($_SESSION['isLogged'])) {
 </head>
 <body>
     <div class="container">
-        <h1> Register </h1>
+        <h1> Sign up </h1>
         <form action="register.php" method="post" enctype="multipart/form-data">
             <div class="container-row">
-                <label for="username"> Name </label>
+                <label for="username"> Name* </label>
                 <input type="text" name="name" id="name" value="<?php if (isset($_SESSION['name'])) echo htmlspecialchars($_SESSION['name']); ?>">
             </div>
             <div class="container-row">
-                <label for="email"> Email </label>
+                <label for="email"> Email* </label>
                 <input type="email" name="email" id="email" value="<?php if (isset($_SESSION['email'])) echo htmlspecialchars($_SESSION['email']); ?>">
             </div>
             <div class="container-row">
-                <label for="passwd"> Password </label>
+                <label for="passwd"> Password* </label>
                 <input type="password" name="passwd" id="passwd" onkeyup="passwdHelp(this.value)" value="<?php if (isset($_SESSION['passwd'])) echo htmlspecialchars($_SESSION['passwd']); ?>">
             </div>
             <div class="container-row">
