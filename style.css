@@ -43,6 +43,10 @@ body {
     cursor: pointer;
 }
 
+.container-row label {
+    font-weight: bold;
+}
+
 .cover {
     align-items: flex-start;
     justify-content: flex-end;
@@ -159,8 +163,24 @@ input[type="file"]::file-selector-button {
     animation: selected-book 0.5s;
 }
 
-label {
-    font-weight: bold;
+.book-votes-icons {
+    font-size: 30px;
+}
+
+input[type="radio" i] {
+    display: none;
+}
+
+.votes-icons {
+    cursor: pointer;
+}
+
+label:has(#vote-positive:checked) .book-votes-icons {
+  color: rgb(42, 114, 54);
+}
+
+label:has(#vote-negative:checked) .book-votes-icons {
+  color: rgb(194, 44, 44);
 }
 
 input, textarea, select {
@@ -214,7 +234,7 @@ h1 {
     color: white;
 }
 
-form {
+form, .center-container {
     padding: 30px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
     border: 1px solid rgb(190, 190, 190);
@@ -333,7 +353,7 @@ nav {
     scrollbar-width: thin;
 }
 
-hr{
+hr {
     height: 2px;
     border: none;
     background-color: rgb(70, 70, 70);
@@ -450,7 +470,7 @@ a:has(.stats) {
 }
 
 .remember-label {
-    font-weight: normal;
+    font-weight: normal !important;
 }
 
 .remember-me {
@@ -471,7 +491,7 @@ a:has(.stats) {
     }
 
     body {
-        margin-top: 130px;
+        margin-top: 140px;
     }
 }
 

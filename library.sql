@@ -37,6 +37,15 @@ CREATE TABLE IF NOT EXISTS books_categories (
     CONSTRAINT fk_books_categories_categories FOREIGN KEY (id_categories) REFERENCES categories (id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS users_votes (
+    id_books INT,
+    user_email VARCHAR(100),
+    vote INT,
+    CONSTRAINT pk_users_votes PRIMARY KEY (id_books, user_email),
+    CONSTRAINT fk_users_votes_books FOREIGN KEY (id_books) REFERENCES books (id) ON DELETE CASCADE,
+    CONSTRAINT fk_users_votes_users FOREIGN KEY (user_email) REFERENCES users (email) ON DELETE CASCADE
+); 
+
 INSERT INTO categories (name, description) VALUES
 ('Fiction', 'Imaginative narratives and stories'),
 ('Non-Fiction', 'Factual and informative books based on real events'),
