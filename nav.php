@@ -26,8 +26,6 @@
                 <div id="search-box"></div>
             </div>
             <a href="book_form.php"><button type="button"> Add book </button></a>
-<!--             <a href="logout.php"><button class="delete" type="button"> Sign out </button></a>
-            <a href="profile.php"><img class="nav-avatar" src="uploads/<?php echo htmlspecialchars($_SESSION['loggedAvatar']); ?>" alt="Avatar" height="40px" width="40px"></a> -->
             <details>
                 <summary><img class="nav-avatar" src="uploads/<?php echo htmlspecialchars($_SESSION['loggedAvatar']); ?>" alt="Avatar" height="40px" width="40px"></summary>
                 <div>
@@ -38,9 +36,12 @@
         </div>
     </div>
 </nav>
-<?php 
+<?php
     if (isset($_SESSION['bookinfo'])){
         echo "<div class='container-info info'><b><span style='color: rgb(194, 44, 44)'>NOTICE:</span></b>" . $_SESSION['bookinfo'] . "</div>";
         unset($_SESSION['bookinfo']);
+    } else if (isset($_SESSION['info'])) {
+        echo "<div class='container-info info'><b><span style='color: rgb(194, 44, 44)'>NOTICE:</span></b>" . $_SESSION['info'] . "</div>";
+        unset($_SESSION['info']);
     }
 ?>

@@ -11,62 +11,6 @@
     $get_user = $conn->prepare($sql);
     $get_user->execute([ 'email' => $_SESSION['loggedEmail'] ]);
     $result = $get_user->fetch(PDO::FETCH_ASSOC);
-
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Update
-        $sql = "UPDATE users SET name=:name, avatar=:avatar WHERE email=:email";
-        $update_user = $conn->prepare($sql);
-
-        // Name filter
-        if (trim($_POST['name']) == ""){
-            $_SESSION['info'] .= "<div> Name can't be blank or just spaces </div>";
-        } else {
-            $name = $_SESSION['name'] = $_POST['name'];
-        }
-
-        // Reset avatar?
-        $reset = $_POST['reset'] == "yes" ? $_POST['reset'] : NULL;
-
-        // Upload avatar
-        if ($_FILES['avatar']['name'] != ""){
-            $extension = strtolower(pathinfo($_FILES['avatar']['name'], PATHINFO_EXTENSION));
-            $file_name = uniqid('avatar_', true) . '.' . $extension;
-            $file_path = 'uploads/' . $file_name;
-
-            $upload = $reset ? false : true;
-
-            if ($extension != "png" && $extension != "jpg" && $extension != "jpeg") {
-                $_SESSION['info'] .= "<div> Only PNG, JPG and JPEG allowed </div>";
-                $upload = false;
-            }
-
-            $check = getimagesize($_FILES['avatar']['tmp_name']);
-            if ($check == false) {
-                $_SESSION['info'] .= "<div> File is not and image </div>";
-                $upload = false;
-            }
-        }
-
-        if ($upload){
-            move_uploaded_file($_FILES['avatar']['tmp_name'], $file_path);
-        }
-
-        // Finally execute update
-        $update_user->execute([
-            'name' => $name ? $name : $result['name'],
-            'avatar' => $reset ? 'default-avatar.png' : ($file_name ? $file_name : $result['avatar']),
-            'email' => $result['email']
-        ]);
-
-        // Remove image if reset
-        if ($reset && $_SESSION['loggedAvatar'] != 'default-avatar.png') {
-            unlink('uploads/' . $_SESSION['loggedAvatar']);
-        }
-
-        $_SESSION['loggedName'] = $name ? $name : $result['name'];
-        $_SESSION['loggedAvatar'] = $reset ? 'default-avatar.png' : ($file_name ? $file_name : $result['avatar']);
-        header('Location: profile.php');
-    }
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -75,6 +19,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Profile - <?php echo $_SESSION['loggedName'] ?></title>
     <link rel="stylesheet" href="style.css">
+    <script>
+        function passwdHelp(str) {
+            if (str.length == 0) {
+                document.getElementById("passwd_hint").innerHTML = "";
+                return;
+            } else {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("passwd_hint").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", 'passwd_help.php?q=' + encodeURIComponent(str), true);
+            xmlhttp.send();
+            }
+        }
+    </script>
 </head>
 <body>
     <?php include 'nav.php' ?>
@@ -83,11 +44,26 @@
             <a href='index.php'><button class='back'> Go back </button></a>
             <h1> Profile </h1>
         </div>
-        <form enctype="multipart/form-data" method="POST">
+        <form action="profile_actions.php" enctype="multipart/form-data" method="POST">
             <div class="container-row">
                 <label for="name"> Name </label>
                 <input type="text" name="name" id="name" value="<?php echo htmlspecialchars($result['name']) ?>">
             </div>
+            <hr>
+            <div class="container-row">
+                <label for="current-passwd"> Current password </label>
+                <input type="password" name="current-passwd" id="current-passwd">
+            </div>
+            <div class="container-row">
+                <label for="passwd"> New password </label>
+                <input type="password" name="passwd" id="passwd" onkeyup="passwdHelp(this.value)">
+            </div>
+            <div class="container-row">
+                <label for="re-passwd"> Repeat new password </label>
+                <input type="password" name="re-passwd" id="re-passwd">
+            </div>
+            <div class="passwd-hint" id="passwd_hint"></div>
+            <hr>
             <div class="container-row">
                 <label for="avatar"> Avatar </label>
                 <input type="file" name="avatar" id="avatar">

@@ -25,6 +25,11 @@
         exit;
     }
 
+    // Add 1 visit
+    $sql = "UPDATE books SET visits=visits+1 WHERE id=:id";
+    $add_visit = $conn->prepare($sql);
+    $add_visit->execute([ 'id' => $result['id'] ]);
+
     //Get user vote
     $sql = "SELECT * FROM users_votes WHERE user_email=:user_email AND id_books=:id_books";
     $get_votes = $conn->prepare($sql);

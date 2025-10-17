@@ -25,8 +25,9 @@ CREATE TABLE IF NOT EXISTS books (
     user_email VARCHAR(100),
     author VARCHAR(100),
     cover VARCHAR(255),
+    visits INT DEFAULT 0,
     CONSTRAINT pk_book PRIMARY KEY (id),
-    CONSTRAINT fk_books_users FOREIGN KEY (user_email) REFERENCES users (email)
+    CONSTRAINT fk_books_users FOREIGN KEY (user_email) REFERENCES users (email) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS books_categories (
