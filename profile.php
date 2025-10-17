@@ -81,7 +81,7 @@
     <div class="container">
         <div class="container-row" style="align-items: center; gap: 20px;">
             <a href='index.php'><button class='back'> Go back </button></a>
-            <h1> Edit profile </h1>
+            <h1> Profile </h1>
         </div>
         <form enctype="multipart/form-data" method="POST">
             <div class="container-row">

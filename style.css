@@ -1,10 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 @keyframes button-animation {
-    0% { transform: translateY(0); }
+    0%, 100% { transform: translateY(0); }
     25% { transform: translateY(3px); }
     75% { transform: translateY(-1px); }
-    100% { transform: translateY(0); }
 }
 
 @keyframes selected-book {
@@ -62,7 +61,7 @@ label:has(input[type="checkbox"]:checked) {
     background-color: rgb(245, 245, 245);
     padding: 10px;
     border-radius: 5px;
-    font-weight: normal;
+    font-weight: normal !important;
     justify-content: center;
     cursor: pointer;
 }
@@ -169,6 +168,10 @@ input[type="file"]::file-selector-button {
 
 input[type="radio" i] {
     display: none;
+}
+
+.votes-icons {
+    cursor: pointer;
 }
 
 label:has(#vote-positive:checked) .book-votes-icons {
@@ -325,11 +328,39 @@ nav {
     border-radius: 50px;
     border: 2px solid rgb(67, 126, 175);
     transition: 0.25s;
+    cursor: pointer;
 }
 
 .nav-avatar:hover {
     box-shadow: 0 0 8px 6px rgba(67, 126, 175, 0.5);
     transform: scale(1.1);
+}
+
+details {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+details summary::marker {
+    content: "";
+}
+
+details[open] > div {
+    position: absolute;
+    display: flex;
+    gap: 5px;
+    top: 65px;
+    right: 0;
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+}
+
+details[open] > div button {
+    width: max-content;
 }
 
 .title {
