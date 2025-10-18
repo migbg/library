@@ -1,6 +1,7 @@
 <?php
-
     require 'connect.php';
+    include 'functions.php';
+
     session_start();
     if (!isset($_SESSION['isLogged'])) {
         header('Location: login_form.php');
@@ -12,10 +13,7 @@
     $user_email = $_SESSION['loggedEmail'];
 
     // Check if book exits
-    $sql = "SELECT id FROM books WHERE id=:id_books";
-    $get_book = $conn->prepare($sql);
-    $get_book->execute([ 'id_books' => $id_books ]);
-    $result_book = $get_book->fetch(PDO::FETCH_COLUMN);
+    $result_book = select_book($conn, $id_books);
 
     if (!$result_book) {
         echo "Invalid book id";
@@ -28,47 +26,26 @@
         exit;
     }
 
-    $sql = "SELECT * FROM users_votes WHERE user_email=:user_email AND id_books=:id_books";
-    $get_vote = $conn->prepare($sql);
-    $get_vote->execute([
-        'user_email' => $user_email,
-        'id_books' => $id_books
-    ]);
-    $result_vote = $get_vote->fetch(PDO::FETCH_ASSOC);
+    /* Select user votes */
+    $result_vote = select_user_votes($conn, $user_email, $id_books);
 
     if (!$result_vote) {
-        $sql = "INSERT INTO users_votes (id_books, user_email, vote) VALUES (:id_books, :user_email, :vote)";
-        $insert_vote = $conn->prepare($sql);
-        $insert_vote->execute([
-            'id_books' => $id_books,
-            'user_email' => $user_email,
-            'vote' => $vote
-        ]);
 
-        $sql = "SELECT (AVG(vote)*100) AS mean FROM users_votes WHERE id_books=:id_books";
-        $votes_mean = $conn->prepare($sql);
-        $votes_mean->execute([
-            'id_books' => $id_books
-        ]);
-        $result_votes_mean = $votes_mean->fetchColumn();
+        /* Insert user votes */
+        insert_user_vote($conn, $id_books, $user_email, $vote);
+
+        /* Gets the votes mean of a book */
+        $result_votes_mean = calculate_votes_mean($conn, $id_books);
 
         echo (int)$result_votes_mean . "%";
 
     } else {
-        $sql = "UPDATE users_votes SET vote=:vote WHERE id_books=:id_books AND user_email=:user_email";
-        $update_vote = $conn->prepare($sql);
-        $update_vote->execute([
-            'vote' => $vote,
-            'id_books' => $id_books,
-            'user_email' => $user_email
-        ]);
 
-        $sql = "SELECT (AVG(vote)*100) AS mean FROM users_votes WHERE id_books=:id_books";
-        $votes_mean = $conn->prepare($sql);
-        $votes_mean->execute([
-            'id_books' => $id_books
-        ]);
-        $result_votes_mean = $votes_mean->fetchColumn();
+        /* Update user vote */
+        update_user_vote($conn, $id_books, $user_email, $vote);
+
+        /* Gets the votes mean of a book */
+        $result_votes_mean = calculate_votes_mean($conn, $id_books);
 
         echo (int)$result_votes_mean . "%";
     }

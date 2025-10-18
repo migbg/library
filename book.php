@@ -1,5 +1,7 @@
 <?php 
     require 'connect.php';
+    include 'functions.php';
+
     session_start();
     if (!isset($_SESSION['isLogged'])) {
         header('Location: login_form.php');
@@ -7,18 +9,10 @@
     }
 
     // Get book data
-    $sql = "SELECT * FROM books WHERE id=:id";
-    $get_book = $conn->prepare($sql);
-    $get_book->execute([ 'id' => $_GET['id'] ]);
-    $result = $get_book->fetch(PDO::FETCH_ASSOC);
+    $result = select_book($conn, $_GET['id']);
 
     // Get book categories
-    $sql = "SELECT name FROM categories INNER JOIN books_categories ON books_categories.id_categories=categories.id WHERE books_categories.id_books=:id_books ORDER BY name";
-    $get_categories = $conn->prepare($sql);
-    $get_categories->execute([
-        'id_books' => $result['id']
-    ]);
-    $result_categories = $get_categories->fetchAll(PDO::FETCH_COLUMN);
+    $result_categories = book_categories_name($conn, $result['id']);
     
     if(!$result) {
         header('Location: index.php');
@@ -26,26 +20,13 @@
     }
 
     // Add 1 visit
-    $sql = "UPDATE books SET visits=visits+1 WHERE id=:id";
-    $add_visit = $conn->prepare($sql);
-    $add_visit->execute([ 'id' => $result['id'] ]);
+    increase_book_visits($conn, $result['id']);
 
     //Get user vote
-    $sql = "SELECT * FROM users_votes WHERE user_email=:user_email AND id_books=:id_books";
-    $get_votes = $conn->prepare($sql);
-    $get_votes->execute([
-        'user_email' => $_SESSION['loggedEmail'],
-        'id_books' => $result['id']
-    ]);
-    $votes_result = $get_votes->fetch(PDO::FETCH_ASSOC);
+    $votes_result = select_user_votes($conn, $_SESSION['loggedEmail'], $result['id']);
 
     // Votes mean
-    $sql = "SELECT (AVG(vote)*100) AS mean FROM users_votes WHERE id_books=:id_books";
-    $votes_mean = $conn->prepare($sql);
-    $votes_mean->execute([
-        'id_books' => $result['id']
-    ]);
-    $result_votes_mean = $votes_mean->fetchColumn();
+    $result_votes_mean = calculate_votes_mean($conn, $result['id']);
 
 ?>
 <!DOCTYPE html>

@@ -1,5 +1,7 @@
 <?php
 require 'connect.php';
+include 'functions.php';
+
 session_start();
 
 if (!isset($_SESSION['isLogged'])) {
@@ -11,13 +13,7 @@ if (!isset($_SESSION['isLogged'])) {
 
     if ($update == "yes"){
         // Get book if user owns it
-        $sql = "SELECT * FROM books WHERE id=:id AND user_email=:user_email";
-        $get_book = $conn->prepare($sql);
-        $get_book->execute([
-            'id' => $_GET['id'],
-            'user_email' => $_SESSION['loggedEmail']
-        ]);
-        $book = $get_book->fetch(PDO::FETCH_ASSOC);
+        $book = user_owns_book($conn, $_GET['id'], $_SESSION['loggedEmail']);
 
         // If not, redirect to index
         if(!$book || $book['user_email'] != $_SESSION['loggedEmail']) {
@@ -26,19 +22,11 @@ if (!isset($_SESSION['isLogged'])) {
         }
 
         //Selected categories
-        $sql = "SELECT id_categories FROM books_categories WHERE id_books=:id_books";
-        $get_categories = $conn->prepare($sql);
-        $get_categories->execute([
-            'id_books' => $book['id']
-        ]);
-        $result_categories = $get_categories->fetchAll(PDO::FETCH_COLUMN);
+        $result_categories = book_categories($conn, $book['id']);
     }
 
-// Categories
-$sql = "SELECT id, name FROM categories ORDER BY name";
-$get_categories = $conn->prepare($sql);
-$get_categories->execute();
-$result = $get_categories->fetchAll(PDO::FETCH_ASSOC);
+// Select categories
+$result = select_categories($conn);
 }
 ?>
 <!DOCTYPE html>

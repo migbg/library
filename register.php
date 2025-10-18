@@ -1,5 +1,7 @@
 <?php
 require 'connect.php';
+include 'functions.php';
+
 session_start();
 if (isset($_SESSION['isLogged'])) {
     header('Location: index.php');
@@ -22,7 +24,7 @@ if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
     $_SESSION['info'] .= "<div> Given email is not valid </div>";
 }
 
-// Comprobar que coindican las contraseñas y aplicar hash
+// // Check if passwords match and hash it
 if ($_POST['passwd'] !== $_POST['re-passwd']) {
     $_SESSION['info'] .= "<div> Passwords must match </div>";
 } else if ($_POST['passwd'] === "") {
@@ -65,23 +67,15 @@ if ($upload){
     move_uploaded_file($_FILES['avatar']['tmp_name'], $file_path);
 }
 
-// Comprueba que el usuario no exista y lo crea
-$sqlSearch = "SELECT email from users WHERE email=:email";
-$sqlSearch = $conn->prepare($sqlSearch);
-$sqlSearch->execute(['email' => $email]);
-$result = $sqlSearch->fetch(PDO::FETCH_ASSOC);
+// Check if users exists
+$result = select_user_data($conn, $email);
+
 if ($result) $_SESSION['info'] .="<div> Email already in use </div>";
 
 if ($email && $passwd && $name) {
     try {
-        $sql = "INSERT INTO users VALUES (:email, :passwd, :name, :avatar)";
-        $insertUser = $conn->prepare($sql);
-        $insertUser->execute([
-            'name' => $name,
-            'email' => $email,
-            'passwd' => $passwd,
-            'avatar' => $upload ? $file_name : "default-avatar.png"
-        ]);
+        /* Create the user */
+        create_user($conn, $name, $email, $passwd, $upload, $file_name);
         $_SESSION['info'] .="<div> User created </div>";
         header('Location: login_form.php');
         exit;

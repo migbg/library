@@ -1,5 +1,7 @@
 <?php
     require 'connect.php';
+    include 'functions.php';
+
     session_start();
     if (!isset($_SESSION['isLogged'])) {
         header('Location: login_form.php');
@@ -7,10 +9,7 @@
     }
 
     // Get user data
-    $sql = "SELECT * FROM users WHERE email=:email";
-    $get_user = $conn->prepare($sql);
-    $get_user->execute([ 'email' => $_SESSION['loggedEmail'] ]);
-    $result = $get_user->fetch(PDO::FETCH_ASSOC);
+    $result = select_user_data($conn, $_SESSION['loggedEmail']);
 ?>
 <!DOCTYPE html>
 <html lang="es">

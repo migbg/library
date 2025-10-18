@@ -1,5 +1,7 @@
 <?php
 require 'connect.php';
+include 'functions.php';
+
 session_start();
 if (!isset($_SESSION['isLogged'])) {
     header('Location: login_form.php');
@@ -7,13 +9,7 @@ if (!isset($_SESSION['isLogged'])) {
 }
 
 //Check if the user owns the book
-$sql = "SELECT * FROM books WHERE id=:id AND user_email=:user_email";
-$get_book = $conn->prepare($sql);
-$get_book->execute([
-    'id' => $_GET['id'],
-    'user_email' => $_SESSION['loggedEmail']
-]);
-$result = $get_book->fetch(PDO::FETCH_ASSOC);
+$result = user_owns_book($conn, $_GET['id'], $_SESSION['loggedEmail']);
 
 // If not, redirect to index
 if(!$result || $result['user_email'] != $_SESSION['loggedEmail']) {
@@ -27,8 +23,8 @@ if(!$result || $result['user_email'] != $_SESSION['loggedEmail']) {
             unlink('uploads/' . $result['cover']);
         }
         
-        $sql = "DELETE FROM books WHERE id={$_GET['id']}";
-        $result = $conn->query($sql);
+        // Delete book
+        delete_book($conn, $_GET['id']);
         $_SESSION['bookinfo'] = "<div> Book deleted </div>";
         header('Location: index.php');
         exit;

@@ -1,12 +1,9 @@
 <?php
 require 'connect.php';
+include 'functions.php';
 
 $search = $_REQUEST['q'];
-$sql = "SELECT id, title, author from books WHERE title LIKE :title";
-
-$search_book = $conn->prepare($sql);
-$search_book->execute([ 'title' => "%" . $search . "%" ]);
-$search_result = $search_book->fetchAll(PDO::FETCH_ASSOC);
+$search_result = select_book_AJAX($conn, $search);
 
 if (!$search_result) {
     echo "<div style='color: rgb(190, 190, 190);'> No result </div>";

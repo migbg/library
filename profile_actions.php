@@ -1,5 +1,7 @@
 <?php
     require 'connect.php';
+    include 'functions.php';
+
     session_start();
     if (!isset($_SESSION['isLogged'])) {
         header('Location: login_form.php');
@@ -7,10 +9,7 @@
     }
 
     // Get user data
-    $sql = "SELECT * FROM users WHERE email=:email";
-    $get_user = $conn->prepare($sql);
-    $get_user->execute([ 'email' => $_SESSION['loggedEmail'] ]);
-    $result = $get_user->fetch(PDO::FETCH_ASSOC);
+    $result = select_user_data($conn, $_SESSION['loggedEmail']);
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Name filter
@@ -80,14 +79,7 @@
         }
 
         // Update
-        $sql = "UPDATE users SET name=:name, avatar=:avatar, password=:passwd WHERE email=:email";
-        $update_user = $conn->prepare($sql);
-        $update_user->execute([
-            'name' => $name ? $name : $result['name'],
-            'avatar' => $reset ? 'default-avatar.png' : ($file_name ? $file_name : $result['avatar']),
-            'email' => $result['email'],
-            'passwd' => $passwd ? $passwd : $result['password']
-        ]);
+        update_user_data($conn, $result['email'], $name, $result['name'], $reset, $file_name, $result['avatar'], $passwd, $result['password']);
 
         // Remove image if reset
         if ($reset && $_SESSION['loggedAvatar'] != 'default-avatar.png') {

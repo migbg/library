@@ -1,16 +1,15 @@
 <?php
 require 'connect.php';
+include 'functions.php';
 session_start();
-session_unset();
 
+/* Delete cookie from DB if belongs to to the logged user and delete it from browser */
 if (isset($_COOKIE['user_cookie']) && $_COOKIE['user_cookie'] != "") {
-    $sql = "DELETE FROM users_tokens WHERE token=:token";
-    $delete_token = $conn->prepare($sql);
-    $delete_token->execute([ 'token' => $_COOKIE['user_cookie']] );
-
+    delete_token($conn, $_COOKIE['user_cookie'], $_SESSION['loggedEmail']);
     setcookie("user_cookie", "", (time() - 3600), "/", "");
 }
 
+session_unset();
 session_destroy();
 header('Location: login_form.php');
 ?>

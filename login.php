@@ -1,20 +1,20 @@
 <?php
 require 'connect.php';
+include 'functions.php';
+
 session_start();
 unset($_SESSION['info']);
 
 // Check a given cookie token
 if (isset($_COOKIE['user_cookie']) && $_COOKIE['user_cookie'] != "") {
-    $sql = "SELECT * FROM users_tokens WHERE token=:token";
-    $check_token = $conn->prepare($sql);
-    $check_token->execute([ 'token' => $_COOKIE['user_cookie'] ]);
-    $result_token = $check_token->fetch(PDO::FETCH_ASSOC);
+
+    /* Check user token */
+    $result_token = check_token($conn, $_COOKIE['user_cookie']);
 
     if ($result_token && $result_token['expires_at'] >= date('Y-m-d H:i:s')) {
-        $sql = "SELECT * FROM users WHERE email=:email";
-        $searchUser = $conn->prepare($sql);
-        $searchUser->execute(['email' => $result_token['user_email']]);
-        $result = $searchUser->fetch(PDO::FETCH_ASSOC);
+
+        /* Get user data */
+        $result = select_user_data($conn, $result_token['user_email']);
 
         $_SESSION['loggedName'] = $result['name'];
         $_SESSION['loggedEmail'] = $result['email'];
@@ -24,10 +24,9 @@ if (isset($_COOKIE['user_cookie']) && $_COOKIE['user_cookie'] != "") {
         header('Location: index.php');
     }
 } else {
-    $sql = "SELECT * FROM users WHERE email=:email";
-    $searchUser = $conn->prepare($sql);
-    $searchUser->execute(['email' => $_POST['email']]);
-    $result = $searchUser->fetch(PDO::FETCH_ASSOC);
+
+    /* Get user data */
+    $result = select_user_data($conn, $_POST['email']);
 
     // Comprueba que el email exista y si contraseña coincida
     if ($result && password_verify($_POST['passwd'], $result['password'])) {
@@ -42,13 +41,8 @@ if (isset($_COOKIE['user_cookie']) && $_COOKIE['user_cookie'] != "") {
             $expires_at = strtotime('+15 days');
             setcookie('user_cookie', $token, $expires_at, "/", "", false, true);
 
-            $sql = "INSERT INTO users_tokens (token, expires_at, user_email) VALUES (:token, :expires_at, :user_email)";
-            $insert_token = $conn->prepare($sql);
-            $insert_token->execute([ 
-                'token' => $token,
-                'expires_at' => date('Y-m-d H:i:s', $expires_at),
-                'user_email' => $result['email']
-            ]);
+            /* Insert token to DB */
+            create_token($conn, $token, $expires_at, $result['email']);
         }
 
         header('Location: index.php');
@@ -58,6 +52,5 @@ if (isset($_COOKIE['user_cookie']) && $_COOKIE['user_cookie'] != "") {
         header('Location: login_form.php');
     }
 }
-
 
 ?>

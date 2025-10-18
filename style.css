@@ -112,6 +112,7 @@ input[type="file"]::file-selector-button {
 
 .info {
     position: fixed;
+    z-index: 100;
 }
 
 .books-list {

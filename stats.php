@@ -1,15 +1,14 @@
 <?php
     require 'connect.php';
+    include 'functions.php';
     session_start();
     if (!isset($_SESSION['isLogged'])) {
         header('Location: login_form.php');
         exit;
     }
-
-    $sql = "SELECT books.*, (AVG(users_votes.vote)*100) as mean FROM books LEFT JOIN users_votes ON books.id = users_votes.id_books WHERE books.user_email=:user_email GROUP BY id ORDER BY visits DESC";
-    $stats = $conn->prepare($sql);
-    $stats->execute([ 'user_email' => $_SESSION['loggedEmail'] ]);
-    $result = $stats->fetchAll(PDO::FETCH_ASSOC);
+    
+    /* Books data and votes mean from owned books */
+    $result = my_books_data_and_votes_mean($conn, $_SESSION['loggedEmail']);
 
 ?>
 <!DOCTYPE html>
