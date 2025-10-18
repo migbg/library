@@ -45,7 +45,15 @@ CREATE TABLE IF NOT EXISTS users_votes (
     CONSTRAINT pk_users_votes PRIMARY KEY (id_books, user_email),
     CONSTRAINT fk_users_votes_books FOREIGN KEY (id_books) REFERENCES books (id) ON DELETE CASCADE,
     CONSTRAINT fk_users_votes_users FOREIGN KEY (user_email) REFERENCES users (email) ON DELETE CASCADE
-); 
+);
+
+CREATE TABLE IF NOT EXISTS users_tokens (
+    token VARCHAR(255),
+    expires_at DATETIME,
+    user_email VARCHAR(100),
+    CONSTRAINT pk_users_tokens_token PRIMARY KEY (token),
+    CONSTRAINT fk_users_tokens_users FOREIGN KEY (user_email) REFERENCES users (email) ON DELETE CASCADE
+);
 
 INSERT INTO categories (name, description) VALUES
 ('Fiction', 'Imaginative narratives and stories'),

@@ -23,7 +23,7 @@
         // Current password
         $current_passwd_check = password_verify($_POST['current-passwd'], $result['password']);
         if ($current_passwd_check) {
-            // Comprobar que coindican las contraseñas y aplicar hash
+            // Check if passwords match and hash it
             if ($_POST['passwd'] !== $_POST['re-passwd']) {
                 $_SESSION['info'] .= "<div> Passwords must match </div>";
             } else if (trim($_POST['passwd']) === "") {

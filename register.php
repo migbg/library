@@ -26,7 +26,7 @@ if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 if ($_POST['passwd'] !== $_POST['re-passwd']) {
     $_SESSION['info'] .= "<div> Passwords must match </div>";
 } else if ($_POST['passwd'] === "") {
-    $_SESSION['info'] .= "<div> Password can't be empty </div>";
+    $_SESSION['info'] .= "<div> Password can't be empty or just spaces </div>";
 } else {
     $regex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+\[\]{}|;:\'",.<>?\/])[A-Za-z\d!@#$%^&*()\-_=+\[\]{}|;:\'",.<>?\/]{10,}$/';
     if (preg_match($regex, $_POST['passwd'])) {

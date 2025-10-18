@@ -1,4 +1,5 @@
 <?php
+
     require 'connect.php';
     session_start();
     if (!isset($_SESSION['isLogged'])) {
@@ -6,9 +7,26 @@
         exit;
     }
 
-    $vote = (int)$_REQUEST['vote'];
-    $id_books = (int)$_REQUEST['id'];
+    $vote = $_REQUEST['vote'];
+    $id_books = $_REQUEST['id'];
     $user_email = $_SESSION['loggedEmail'];
+
+    // Check if book exits
+    $sql = "SELECT id FROM books WHERE id=:id_books";
+    $get_book = $conn->prepare($sql);
+    $get_book->execute([ 'id_books' => $id_books ]);
+    $result_book = $get_book->fetch(PDO::FETCH_COLUMN);
+
+    if (!$result_book) {
+        echo "Invalid book id";
+        exit;
+    }
+
+    //Check if vote is not 1 or 0 (coming as string)
+    if (($vote != '1' && $vote != '0')) {
+        echo "Invalid vote value";
+        exit;
+    }
 
     $sql = "SELECT * FROM users_votes WHERE user_email=:user_email AND id_books=:id_books";
     $get_vote = $conn->prepare($sql);

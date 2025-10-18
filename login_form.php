@@ -4,6 +4,11 @@ if (isset($_SESSION['isLogged'])) {
     header('Location: index.php');
     exit;
 }
+
+// Check if cookie exists
+if (isset($_COOKIE['user_cookie']) && $_COOKIE['user_cookie'] != "") {
+    header('Location: login.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +33,7 @@ if (isset($_SESSION['isLogged'])) {
             </div>
             <div class="container-row remember">
                 <label class="remember-label" for="remember-me"> Remember me </label>
-                <input class="remember-me" type="checkbox" name="remind-me" id="remember-me" value="yes">
+                <input class="remember-me" type="checkbox" name="remember-me" id="remember-me" value="yes">
             </div>
             <div class="container-row" style="align-items:flex-end;">
                 <div>Don't have an account? <a class="login-register" href="register_form.php">Sign up</a>.</div>

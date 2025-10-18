@@ -491,6 +491,8 @@ a:has(.stats) {
     background-color: #5b3b5c;
 }
 
+/* Remember me for login */
+
 .remember {
     justify-content: flex-end;
     align-items: center;
@@ -505,6 +507,58 @@ a:has(.stats) {
     display: block !important;
     height: 20px;
     width: 20px;
+}
+
+/* Stats table */
+
+.stats-list {
+    width: 80%;
+    max-width: 700px;
+}
+
+.stats-table {
+    width: 100%;
+    text-align: left;
+    border-spacing: 10px;
+    background-color: #e2e2e2;
+    border-radius: 10px;
+}
+
+.stats-table img {
+    border: 2px solid black;
+    height: 120px; 
+    width: 80px;
+}
+
+.stats-table td {
+    text-align: center;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.stats-table th {
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Change stats table for smaller screens */
+@media (max-width: 680px) {
+    .stats-table img {
+        height: 80px; 
+        width: 60px;
+    }
+
+    .stats-table {
+        border-spacing: 0;
+    }
+
+    .stats-table td, th {
+        padding: 0;
+        font-size: 0.8rem !important;
+        background-color: #e2e2e2;
+    }
 }
 
 /* Change nav for smaller screens */
