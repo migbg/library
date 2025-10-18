@@ -10,7 +10,7 @@ if (isset($_COOKIE['user_cookie']) && $_COOKIE['user_cookie'] != "") {
     $check_token->execute([ 'token' => $_COOKIE['user_cookie'] ]);
     $result_token = $check_token->fetch(PDO::FETCH_ASSOC);
 
-    if ($result_token && $result_token['expires_at'] >= date('Y-m-d H:i:s', time())) {
+    if ($result_token && $result_token['expires_at'] >= date('Y-m-d H:i:s')) {
         $sql = "SELECT * FROM users WHERE email=:email";
         $searchUser = $conn->prepare($sql);
         $searchUser->execute(['email' => $result_token['user_email']]);
@@ -39,7 +39,7 @@ if (isset($_COOKIE['user_cookie']) && $_COOKIE['user_cookie'] != "") {
 
         if ($_POST['remember-me'] == "yes") {
             $token = bin2hex(random_bytes(32));
-            $expires_at = strtotime('+30 days');
+            $expires_at = strtotime('+15 days');
             setcookie('user_cookie', $token, $expires_at, "/", "", false, true);
 
             $sql = "INSERT INTO users_tokens (token, expires_at, user_email) VALUES (:token, :expires_at, :user_email)";
