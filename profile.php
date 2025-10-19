@@ -17,6 +17,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Profile - <?php echo $_SESSION['loggedName'] ?></title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
     <script>
         function passwdHelp(str) {
@@ -40,17 +41,17 @@
     <?php include 'nav.php' ?>
     <div class="container">
         <div class="container-row" style="align-items: center; gap: 20px;">
-            <a href='index.php'><button class='back'> Go back </button></a>
+            <a href='index.php'><button class='back'><i class="bi bi-arrow-left-circle icon"></i> Go back </button></a>
             <h1> Profile </h1>
         </div>
         <form action="profile_actions.php" enctype="multipart/form-data" method="POST">
             <div class="container-row">
-                <label for="name"> Name </label>
+                <label for="name"><i class="bi bi-alphabet-uppercase form-icon"></i> Name </label>
                 <input type="text" name="name" id="name" value="<?php echo htmlspecialchars($result['name']) ?>">
             </div>
             <hr>
             <div class="container-row">
-                <label for="current-passwd"> Current password </label>
+                <label for="current-passwd"><i class="bi bi-braces-asterisk form-icon"></i> Current password </label>
                 <input type="password" name="current-passwd" id="current-passwd">
             </div>
             <div class="container-row">
@@ -64,20 +65,20 @@
             <div class="passwd-hint" id="passwd_hint"></div>
             <hr>
             <div class="container-row">
-                <label for="avatar"> Avatar </label>
+                <label for="avatar"><i class="bi bi-person-bounding-box form-icon"></i> Avatar </label>
                 <input type="file" name="avatar" id="avatar">
             </div>
             <div class="container-row cover">
                 <label class="container-row reset">
-                    <span> Reset avatar </span>
+                    <span><i class='bi bi-x-octagon icon'></i> Reset avatar </span>
                     <input type="checkbox" name="reset" value="yes">
                 </label>
                 <img class="profile-avatar" src="uploads/<?php echo htmlspecialchars($result['avatar']) ?>">
             </div>
-            <button type="submit" style="width: 100%;"> Update profile </button>
+            <button type="submit" style="width: 100%;"><i class="bi bi-arrow-clockwise icon"></i> Update profile </button>
         </form>
         <div class="center-container" style="margin-top: 20px">
-            <a href="stats.php"><button class="stats" type="submit" style="width: 100%;"> Check my books stats </button></a>
+            <a href="stats.php"><button class="stats" type="submit" style="width: 100%;"><i class="bi bi-clipboard-data icon"></i> Check my books stats </button></a>
         </form>
     </div>
 </body>

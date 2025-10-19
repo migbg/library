@@ -40,6 +40,7 @@ if(!$result || $result['user_email'] != $_SESSION['loggedEmail']) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Book delete </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -48,8 +49,8 @@ if(!$result || $result['user_email'] != $_SESSION['loggedEmail']) {
         <form method="POST">
             <div class="container-row" style="gap: 20px;">
                 <div> Are you sure you want to delete "<b><?php echo htmlspecialchars($result['title'])?>"</b> by <?php echo htmlspecialchars($result['author'])?></div>
-                <button class="delete" type="submit" name="action" value="yes"> YES </button>
-                <button type="submit" name="action" value="no"> No </button>
+                <button class="delete" type="submit" name="action" value="yes"><i class="bi bi-exclamation-diamond-fill icon"></i> YES </button>
+                <button type="submit" name="action" value="no"><i class="bi bi-arrow-left-circle icon"></i> No </button>
             </div>
         </form>
     </div>

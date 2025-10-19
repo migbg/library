@@ -55,12 +55,12 @@
     <?php include 'nav.php' ?>
     <div class="info-card">
         <div class="card-column">
-            <a href='index.php'><button class='back'> Go back </button></a>
+            <a href='index.php'><button class='back'><i class="bi bi-arrow-left-circle icon"></i> Go back </button></a>
             <img class="book-img" src="uploads/<?php echo htmlspecialchars($result['cover']); ?>" alt="Book Cover">
         <?php
             if ($result['user_email'] == $_SESSION['loggedEmail']) {
-                echo "<a href='book_form.php?id=" . htmlspecialchars($result['id']) . "&update=yes'><button> Edit </button></a>";
-                echo "<a href='delete_book.php?id=" . htmlspecialchars($result['id']) . "'><button class=delete> Delete </button></a>"; 
+                echo "<a href='book_form.php?id=" . htmlspecialchars($result['id']) . "&update=yes'><button><i class='bi bi-pencil icon'></i> Edit </button></a>";
+                echo "<a href='delete_book.php?id=" . htmlspecialchars($result['id']) . "'><button class=delete><i class='bi bi-trash3 icon'></i> Delete </button></a>"; 
             }  
         ?>
         </div>

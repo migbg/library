@@ -11,6 +11,11 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes selected-form {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
 html {
     height: 100vh;
 }
@@ -32,6 +37,33 @@ body {
     justify-content: space-between;
     align-items: baseline;
     margin-bottom: 10px;
+    transition: transform 0.25s;
+}
+
+.container-row:has(input:focus){
+    transform: translateX(8px);
+}
+
+.container-row:has(textarea:focus){
+    transform: translateX(8px);
+}
+
+.container-row:has(input:focus) label::before{
+    position: absolute;
+    left: -20px;
+    content: "|";
+    color:rgb(67, 126, 175);
+    animation: selected-form 0.25s;
+    font-weight: 900;
+}
+
+.container-row:has(textarea:focus) label::before{
+    position: absolute;
+    left: -20px;
+    content: "|";
+    color:rgb(67, 126, 175);
+    animation: selected-form 0.25s;
+    font-weight: 900;
 }
 
 .categories {
@@ -44,6 +76,15 @@ body {
 
 .container-row label {
     font-weight: bold;
+}
+
+.icon {
+    margin-right: 5px;
+}
+
+.form-icon {
+    color:#bbbbbb;
+    margin-right: 5px;
 }
 
 .cover {
@@ -194,6 +235,15 @@ input[type="radio" i] {
 
 .votes-icons {
     cursor: pointer;
+    color: #bbbbbb;
+}
+
+.book-votes-icons {
+    transition: 0.25s;
+}
+
+.votes-icons:hover .book-votes-icons {
+    color: black;
 }
 
 label:has(#vote-positive:checked) .book-votes-icons {

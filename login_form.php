@@ -17,6 +17,7 @@ if (isset($_COOKIE['user_cookie']) && $_COOKIE['user_cookie'] != "") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Sign in </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -24,11 +25,11 @@ if (isset($_COOKIE['user_cookie']) && $_COOKIE['user_cookie'] != "") {
         <h1> Sign in </h1>
         <form action="login.php" method="post">
             <div class="container-row">
-                <label for="email"> Email: </label>
+                <label for="email"><i class="bi bi-envelope-at-fill form-icon"></i> Email: </label>
                 <input type="email" name="email" id="email" autofocus>
             </div>
             <div class="container-row">
-                <label for="passwd"> Password: </label>
+                <label for="passwd"><i class="bi bi-braces-asterisk form-icon"></i> Password: </label>
                 <input type="password" name="passwd" id="passwd">
             </div>
             <div class="container-row remember">
@@ -37,7 +38,7 @@ if (isset($_COOKIE['user_cookie']) && $_COOKIE['user_cookie'] != "") {
             </div>
             <div class="container-row" style="align-items:flex-end;">
                 <div>Don't have an account? <a class="login-register" href="register_form.php">Sign up</a>.</div>
-                <button type="submit"> Sign in </button>
+                <button type="submit"><i class="bi bi-box-arrow-in-right icon"></i> Sign in </button>
             </div>
         </form>
         <div>
