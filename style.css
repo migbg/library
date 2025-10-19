@@ -98,7 +98,8 @@ input[type="file"]::file-selector-button {
     cursor: pointer;
 }
 
-.container-info {
+.container-info[open] {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: fit-content;
@@ -107,12 +108,32 @@ input[type="file"]::file-selector-button {
     border-radius: 5px;
     background-color: white;
     padding: 10px;
+    gap: 10px;
+    left: 0;
     margin-top: 20px;
 }
 
-.info {
+.container-info[open] button {
+    position: absolute;
+    cursor: pointer;
+    animation: none;
+    top: 0;
+    right: 0;
+    border-radius: 0 3px 0 5px;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 4px;
+}
+
+.info[open] {
     position: fixed;
+    margin: 0;
+    margin-left: 10px;
     z-index: 100;
+}
+
+.dialog-form {
+    all: unset;
 }
 
 .books-list {
@@ -514,7 +535,8 @@ a:has(.stats) {
 
 .stats-list {
     width: 80%;
-    max-width: 700px;
+    max-width: 900px;
+    margin-bottom: 40px;
 }
 
 .stats-table {

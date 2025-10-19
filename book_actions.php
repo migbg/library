@@ -107,7 +107,7 @@ if (isset($title) && isset($author) && isset($year) && isset($url)) {
             /* Update book */
             update_book($conn, $book_id, $title, $description, $url, $year, $_SESSION['loggedEmail'], $author, $reset, $upload, $file_name, $result['cover']);
 
-            if ($reset) {
+            if ($reset && $result['cover'] != "default.png") {
                 unlink('uploads/' . $result['cover']);
             }
             $_SESSION['bookinfo'] .= "<div> Book updated </div>";

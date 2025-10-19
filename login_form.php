@@ -43,7 +43,12 @@ if (isset($_COOKIE['user_cookie']) && $_COOKIE['user_cookie'] != "") {
         <div>
             <?php 
                 if (isset($_SESSION['info'])) {
-                    echo "<div class=container-info><b><span style='color: rgb(194, 44, 44)'>NOTICE:</span></b>" . $_SESSION['info'] . "</div>";
+                    echo "<dialog class='container-info' open>";
+                    echo "<b><span style='color: rgb(194, 44, 44)'>NOTICE:</span></b>";
+                    echo "<div>" . $_SESSION['info'] . "</div>";
+                    echo "<form method='dialog' class='dialog-form'>";
+                    echo "<button class='back'>x</button>";
+                    echo "</form></dialog>";
                     unset($_SESSION['info']);
                 }
             ?>

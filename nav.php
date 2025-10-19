@@ -38,10 +38,20 @@
 </nav>
 <?php
     if (isset($_SESSION['bookinfo'])){
-        echo "<div class='container-info info'><b><span style='color: rgb(194, 44, 44)'>NOTICE:</span></b>" . $_SESSION['bookinfo'] . "</div>";
+        echo "<dialog class='container-info info' open>";
+        echo "<b><span style='color: rgb(194, 44, 44)'>NOTICE:</span></b>";
+        echo "<div>" . $_SESSION['bookinfo'] . "</div>";
+        echo "<form method='dialog' class='dialog-form'>";
+        echo "<button class='back'>x</button>";
+        echo "</form></dialog>";
         unset($_SESSION['bookinfo']);
     } else if (isset($_SESSION['info'])) {
-        echo "<div class='container-info info'><b><span style='color: rgb(194, 44, 44)'>NOTICE:</span></b>" . $_SESSION['info'] . "</div>";
+        echo "<dialog class='container-info info' open>";
+        echo "<b><span style='color: rgb(194, 44, 44)'>NOTICE:</span></b>";
+        echo "<div>" . $_SESSION['info'] . "</div>";
+        echo "<form method='dialog' class='dialog-form'>";
+        echo "<button class='back'>x</button>";
+        echo "</form></dialog>";
         unset($_SESSION['info']);
     }
 ?>
