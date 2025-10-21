@@ -2,6 +2,9 @@
 require 'connect.php';
 include 'functions.php';
 
+/* MySQL my.ini under mysqld should also be default_time_zone='+00:00' */
+date_default_timezone_set('UTC'); 
+
 session_start();
 unset($_SESSION['info']);
 
@@ -11,7 +14,7 @@ if (isset($_COOKIE['user_cookie']) && $_COOKIE['user_cookie'] != "") {
     /* Check user token */
     $result_token = check_token($conn, $_COOKIE['user_cookie']);
 
-    if ($result_token && $result_token['expires_at'] >= date('Y-m-d H:i:s')) {
+    if ($result_token && $result_token['expires_at'] > date('Y-m-d H:i:s')) {
 
         /* Get user data */
         $result = select_user_data($conn, $result_token['user_email']);
@@ -22,6 +25,10 @@ if (isset($_COOKIE['user_cookie']) && $_COOKIE['user_cookie'] != "") {
         $_SESSION['isLogged'] = true;
 
         header('Location: index.php');
+        exit;
+    } else {
+        header('Location: logout.php');
+        exit;
     }
 } else {
 
@@ -52,5 +59,4 @@ if (isset($_COOKIE['user_cookie']) && $_COOKIE['user_cookie'] != "") {
         header('Location: login_form.php');
     }
 }
-
 ?>

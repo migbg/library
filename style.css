@@ -72,6 +72,11 @@ body {
     border-radius: 5px;
     font-weight: normal;
     cursor: pointer;
+    transition: background-color 0.25s;
+}
+
+.categories:hover {
+    background-color: #bbbbbb;
 }
 
 .container-row label {
